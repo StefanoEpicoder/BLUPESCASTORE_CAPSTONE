@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "QueriesPage";
+}
+
+<h2 class="text-center m-3">Totale incassato</h2>
+
+<div id="showInfo" class="text-center"></div>
+
+<button class="btn btn-warning mx-auto d-block" onclick="GetOrdersTotalAmount()">Calcola Totale</button>
+
+<script type="text/javascript">
+    function GetOrdersTotalAmount() {
+        $.ajax({
+            method: 'GET',
+            url: '/Queries/GetOrdersTotalAmount',
+            success: function (data) {
+                var totalAmount = data;
+                $("#showInfo").html("<p style='background-color: yellow;'>Il totale incassato di oggi è: " + totalAmount + " €</p>");
+            },
+            error: function (xhr, status, error) {
+                console.error("Errore nella richiesta AJAX:", error);
+            }
+        });
+    }
+</script>

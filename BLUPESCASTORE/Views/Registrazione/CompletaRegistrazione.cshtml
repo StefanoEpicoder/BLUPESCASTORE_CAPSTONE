@@ -1,0 +1,12 @@
+﻿@model BLUPESCASTORE.Models.REGISTRAZIONE
+
+<form asp-action="CompletaRegistrazione" method="post">
+    <input type="hidden" name="username" value="@Model.Username">
+
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome" required>
+
+    <!-- Aggiungi qui gli altri campi -->
+
+    <input type="submit" value="Completa Registrazione">
+</form>

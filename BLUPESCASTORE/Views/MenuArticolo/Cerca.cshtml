@@ -1,0 +1,30 @@
+﻿@model List<BLUPESCASTORE.Models.ARTICOLO>
+
+<h2>Risultati di ricerca</h2>
+
+@if (!Model.Any())
+{
+    <p>Nessun articolo trovato.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome Articolo</th>
+                <th>Foto</th>
+                <!-- Aggiungi qui altre colonne per altre proprietà dell'articolo -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var articolo in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(articolo.NomeArticolo, "Details", new { id = articolo.IdArticolo })</td>
+                    <td><img src="@Url.Content("~/Content/img/" + articolo.Foto)" alt="Foto di @articolo.NomeArticolo" /></td>
+                    <!-- Aggiungi qui altre celle per altre proprietà dell'articolo -->
+                </tr>
+            }
+        </tbody>
+    </table>
+}

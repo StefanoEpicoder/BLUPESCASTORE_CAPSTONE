@@ -1,0 +1,156 @@
+﻿@model BLUPESCASTORE.Models.ORDINE
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2 style="color: #6f6d6b; text-shadow: 1px 1px 9px rgba(1, 0, 0, 0.5);">DETTAGLIO DELL'ORDINE</h2>
+
+<div class="container-fluid" id="bgMenu">
+
+    <div class="container" id="areaRiservata">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.HiddenFor(model => model.IdUser)
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NumeroOrdine, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NumeroOrdine, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.NumeroOrdine, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            <table class="table1">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.USER.Nome)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.USER.Cognome)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.USER.Cod_Fiscale)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.USER.Citta)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.USER.Prov)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.USER.Tel_Cell)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.USER.email)
+                    </th>
+
+                    <th></th>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.USER.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.USER.Cognome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.USER.Cod_Fiscale)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.USER.Citta)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.USER.Prov)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.USER.Tel_Cell)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.USER.email)
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </table>
+
+            <h2 style="color: #6f6d6b; text-shadow: 1px 1px 9px rgba(1, 0, 0, 0.5);">ARTICOLI ACQUISTATI</h2>
+
+            <table class="table">
+                <tr>
+                    <th class="">
+                        Nome dell'articolo
+                    </th>
+                    <th class="">
+                        Quantità
+                    </th>
+                    <!-- Aggiungi qui altre intestazioni di colonna per altre proprietà dell'articolo -->
+                </tr>
+
+                @foreach (var item in Model.DETTAGLIO)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ARTICOLO.NomeArticolo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantita)
+                        </td>
+                        <!-- Aggiungi qui altre celle per altre proprietà dell'articolo -->
+                    </tr>
+                }
+            </table>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TotaleImporto, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @{Html.EnableClientValidation(false);}
+                    @Html.EditorFor(model => model.TotaleImporto, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @{Html.EnableClientValidation(true);}
+                    @*@Html.ValidationMessageFor(model => model.TotaleImporto, "", new { @class = "text-danger" })*@
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="d-flex flex-row justify-content-between col-md-offset-2 col-md-10">
+                    @Html.ActionLink("INDIETRO", "Carrello", "Dettaglio", null, new { @class = "btn btn-danger" })
+                    <input type="submit" value="PAGA" class="btn btn-success" id="salva" onclick="showPaymentMessage()" />
+                </div>
+            </div>
+
+
+            <!--<script>
+        function showPaymentMessage() {
+            alert("Pagamento effettuato! Ti contatteremo quando il tuo pacco verrà evaso!", "success");
+        }
+    </script>-->
+        </div>
+        }
+
+
+        <!--<div>
+            @Html.ActionLink("Ritorna all'ordine d'acquisto", "Index")
+        </div>-->
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

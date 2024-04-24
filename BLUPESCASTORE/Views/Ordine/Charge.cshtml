@@ -1,0 +1,140 @@
+﻿@model BLUPESCASTORE.Models.ORDINE
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Pagamento";
+    var dettagli = TempData["Dettagli"] as List<BLUPESCASTORE.Models.DETTAGLIO>;
+    decimal total = dettagli.Sum(item => item.PrezzoTotale);
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <!-- Colonna sinistra per il form di pagamento -->
+        <div class="col-md-6">
+            <h2 class="mb-0">Modulo di Pagamento</h2>
+            <form action="/Ordine/Charge" method="POST">
+                <!-- Il tuo form di pagamento va qui -->
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome" placeholder="" value="" required>
+                </div>
+                <div class="form-group">
+                    <label for="cognome">Cognome</label>
+                    <input type="text" class="form-control" id="cognome" name="cognome" placeholder="" value="" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="nome@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="indirizzo">Indirizzo</label>
+                    <input type="text" class="form-control" id="indirizzo" name="indirizzo" placeholder="Via..." required>
+                </div>
+                <div class="form-group">
+                    <label for="indirizzo2">Indirizzo 2 <span class="text-muted">(Opzionale)</span></label>
+                    <input type="text" class="form-control" id="indirizzo2" name="indirizzo2" placeholder="opzionale">
+                </div>
+                <div class="form-group">
+                    <label for="paese">Paese</label>
+                    <select class="form-control" id="paese" name="paese" required>
+                        <option value="">Scegli...</option>
+                        <option>Italia</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="regione">Regione</label>
+                    <select class="form-control" id="regione" name="regione" required>
+                        <option value="">Scegli...</option>
+                        <option>Abruzzo</option>
+                        <option>Basilicata</option>
+                        <option>Calabria</option>
+                        <option>Campania</option>
+                        <option>Emilia-Romagna</option>
+                        <option>Friuli-Venezia Giulia</option>
+                        <option>Lazio</option>
+                        <option>Liguria</option>
+                        <option>Lombardia</option>
+                        <option>Marche</option>
+                        <option>Molise</option>
+                        <option>Piemonte</option>
+                        <option>Puglia</option>
+                        <option>Sardegna</option>
+                        <option>Sicilia</option>
+                        <option>Toscana</option>
+                        <option>Trentino-Alto Adige</option>
+                        <option>Umbria</option>
+                        <option>Valle d'Aosta</option>
+                        <option>Veneto</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="citta">Città</label>
+                    <input type="text" class="form-control" id="citta" name="citta" placeholder="Inserisci la tua città" required>
+                </div>
+                <div class="form-group">
+                    <label for="cap">CAP</label>
+                    <input type="text" class="form-control" id="cap" name="cap" placeholder="" required>
+                </div>
+                <hr class="mb-4">
+                <h4 class="mb-3">Metodi di pagamento</h4>
+                <div class="d-block my-3">
+                    <div>
+                        <label>
+                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                    data-key="pk_test_51P6CweEooIqhcjUCf3BWsvFid3dMTZGauxlGIle9vuAVSwNFZ8JbBNdIwJY1PkDCVT1UdmwQZmsDNXgdFeKa0b2j00Sp4wihd9"
+                                    data-amount="@((int)(Model.TotaleImporto * 100))"
+                                    data-name="BLUPESCASTORE"
+                                    data-description="Pagamento per ordine @Model.NumeroOrdine"
+                                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                    data-locale="auto"
+                                    data-currency="eur"></script>
+                        </label>
+                    </div>
+                    <br />
+                    <div>
+                        <label>
+                            <a href="https://www.paypal.com/it/home" target="_blank">
+                                <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal Logo">
+                            </a>
+                        </label>
+                    </div>
+                </div>
+                <hr class="mb-4">
+                @Html.HiddenFor(model => model.IdOrdine)
+            </form>
+        </div>
+
+        <!-- Colonna destra per il riepilogo del carrello -->
+        <div class="col-md-6">
+            <!-- Il tuo riepilogo del carrello va qui -->
+            <h2>Ordine N.: @Model.NumeroOrdine</h2>
+            <h2>I tuoi articoli:</h2>
+            <table class="table1">
+                <tr>
+                    <th>Prodotto</th>
+                    <th>Quantità</th>
+                    <th>Prezzo</th>
+                </tr>
+                @foreach (var dettaglio in dettagli)
+                {
+                    <tr>
+                        <td>@dettaglio.ARTICOLO.NomeArticolo</td>
+                        <td>@dettaglio.Quantita</td>
+                        <td>@dettaglio.PrezzoTotale.ToString("F2")€</td>
+                    </tr>
+                }
+            </table>
+            <p class="totale d-flex align-items-center justify-content-end" style="margin-top:20px">Totale da pagare: <span style=" background-color: #1851C2; color:white; padding:10px; border-radius:8px"> @total.ToString("F2")€</span></p>
+
+        </div>
+    </div>
+</div>
+<script>
+    window.onload = function () {
+        var navbarHeight = document.querySelector('.pippo').offsetHeight;
+        var thElements = document.querySelectorAll('.table1 th');
+
+        thElements.forEach(function (th) {
+            th.style.top = navbarHeight + 'px';
+        });
+    };</script>

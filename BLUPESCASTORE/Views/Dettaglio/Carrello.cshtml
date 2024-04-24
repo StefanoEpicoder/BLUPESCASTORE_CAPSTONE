@@ -1,0 +1,118 @@
+﻿@model IEnumerable<BLUPESCASTORE.Models.DETTAGLIO>
+
+@{
+    ViewBag.Title = "Carrello";
+    bool isFirstItem = true;
+    decimal total = Model.Sum(item => item.PrezzoTotale);
+}
+
+<h2>CARRELLO</h2>
+
+
+<div class="container-fluid" id="bgMenu">
+
+    <div class="container" id="areaRiservata">
+
+        @if (Model == null || !Model.Any())
+        {
+            <div id="toast-container">
+                <div class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                        Non ci sono ordini nel tuo carrello.
+                        <br />
+                        Ritorna al negozio per aggiungere articoli.
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                $(document).ready(function () {
+                    $('.toast').toast('show');
+                });</script>
+        }
+
+        <table class="table1">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.USER.Nome)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.USER.Cognome)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ARTICOLO.NomeArticolo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ARTICOLO.Prezzo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantita)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PrezzoTotale)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @if (isFirstItem)
+                    {
+                        <td class="fade-in-right">
+                            @Html.DisplayFor(modelItem => item.USER.Nome)
+                        </td>
+                        <td class="fade-in-right">
+                            @Html.DisplayFor(modelItem => item.USER.Cognome)
+                        </td>
+                        isFirstItem = false;
+                    }
+                    else
+                    {
+                        <td></td>
+                        <td></td>
+                    }
+
+                    <td class="fade-in-right">
+                        @Html.DisplayFor(modelItem => item.ARTICOLO.NomeArticolo)
+                    </td>
+                    <td class="fade-in-right">
+                        @Html.DisplayFor(modelItem => item.ARTICOLO.Prezzo)
+                    </td>
+                    <td class="fade-in-right">
+                        @Html.DisplayFor(modelItem => item.Quantita)
+                    </td>
+                    <td class="fade-in-right">
+                        @Html.DisplayFor(modelItem => item.PrezzoTotale)
+                    </td>
+                    <td class="fade-in-right">
+                        @Html.ActionLink("Modifica", "Edit", new { id = item.IdDettaglio }, new { @class = "btn btn-warning" })
+                        @Html.ActionLink("Elimina", "Delete", new { id = item.IdDettaglio }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+        </table>
+        <div class="CarrelloProsegui d-flex flex-row justify-content-between">
+            <p class="totale">Totale da pagare: <span style="background-color: #1851C2; color:white; padding:10px; border-radius:8px">@total.ToString("F2")€</span></p>
+
+
+            @if (Model != null && Model.Any())
+            {
+                <a class="btn btn-success d-flex align-items-center" id="salva" href="/Ordine/Create">PROSEGUI</a>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    window.onload = function () {
+        var navbarHeight = document.querySelector('.pippo').offsetHeight;
+        var thElements = document.querySelectorAll('.table1 th');
+
+        thElements.forEach(function (th) {
+            th.style.top = navbarHeight + 'px';
+        });
+    };</script>

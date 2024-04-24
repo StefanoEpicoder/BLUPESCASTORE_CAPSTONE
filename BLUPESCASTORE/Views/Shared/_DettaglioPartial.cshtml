@@ -1,0 +1,47 @@
+﻿@model IEnumerable<BLUPESCASTORE.Models.DETTAGLIO>
+
+<table class="table1">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ARTICOLO.NomeArticolo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ARTICOLO.Prezzo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantita)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrezzoTotale)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="fade-in-right">
+                @Html.DisplayFor(modelItem => item.ARTICOLO.NomeArticolo)
+            </td>
+            <td class="fade-in-right">
+                @Html.DisplayFor(modelItem => item.ARTICOLO.Prezzo)
+            </td>
+            <td class="fade-in-right">
+                @Html.DisplayFor(modelItem => item.Quantita)
+            </td>
+            <td class="fade-in-right">
+                @Html.DisplayFor(modelItem => item.PrezzoTotale)
+            </td>
+
+        </tr>
+    }
+</table>
+
+<script>window.onload = function () {
+        var navbarHeight = document.querySelector('.pippo').offsetHeight;
+        var thElements = document.querySelectorAll('.table1 th');
+
+        thElements.forEach(function (th) {
+            th.style.top = navbarHeight + 'px';
+        });
+    };</script>

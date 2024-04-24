@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<section class="container-fluid mt-5">
+    <div class="row align-items-center d-flex flex-nowrap">
+        <!-- COL ICONE SOCIAL -->
+        <div class="col-2">
+
+        </div>
+        <!-- COL SEZ PRINCIPALE -->
+
+        <div class="container2">
+            <div class="">
+                <h1 class="name justify-content-center" data-aos="zoom-in">BLU PESCA</h1>
+                <!--<h3 class="disappear" data-aos="zoom-in">
+                    <span> Lo </span><span></span>
+                    <span> Store </span> <span></span><span> Online </span><span></span>
+                    <span></span><span> della pesca.</span>
+                </h3>-->
+            </div>
+        </div>
+    </div>
+</section>
+<br>
+<!--<div class="fish">
+    <div class="fish-body">
+        <div class="eye">
+            <div class="pupil"></div>
+        </div>
+    </div>
+    <div class="fin"></div>
+    <div class="fin fin-bottom"></div>
+</div>-->
+<!--<div class="bubbles bubble-1"></div>
+<div class="bubbles bubble-5"></div>
+<div class="bubbles bubble-2"></div>
+<div class="bubbles bubble-6"></div>
+<div class="bubbles bubble-3"></div>
+<div class="bubbles bubble-7"></div>
+<div class="bubbles bubble-4"></div>
+<div class="bubbles bubble-8"></div>-->
+<section class="Carosello">
+    <div id="carouselExampleControls" class="carousel slide w-100" data-bs-ride="carousel" data-aos="fade-right">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="~/Content/img/carosello1.jpeg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="~/Content/img/carosello2.jpeg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="~/Content/img/carosello3.jpeg" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</section>
+
+
+<section class="about-me" id="aboutme">
+    <div class="container">
+
+        <h2 class=" who mt-5 text-center" data-aos="zoom-in">Chi Siamo</h2>
+        <div class="d-flex align-items-center">
+            <div class="">
+                <p class="mt-4" id="description" data-aos="zoom-in">
+                    Siamo un negozio di articoli per la pesca, nato nel gennaio 2020.
+                    Abbiamo un esperienza ventennale sulle attrezzature da pesca e nel settore dell'assistenza tecnica di canne e mulinelli, che mettiamo a disposizione dei nostri clienti.
+                    Andiamo sempre alla ricerca di nuovi ed interessanti articoli da proporre alcuni dei quali, li potrete trovare sul nostro sito.
+                    La nostra mission è crescere insieme ai nostri clienti, proponendo loro sempre i migliori articoli.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        // Seleziona l'elemento con la classe 'fish'
+        const fish = document.querySelector('.fish');
+
+        // Aggiungi un event listener per l'evento 'animationend'
+        fish.addEventListener('animationend', () => {
+            // Rimuovi l'elemento fish dal DOM
+            fish.remove();
+        });
+    });
+</script>

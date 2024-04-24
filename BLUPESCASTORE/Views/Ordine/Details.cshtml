@@ -1,0 +1,31 @@
+﻿@model BLUPESCASTORE.Models.OrdinePagamentoViewModel
+
+<h2>Dettagli dell'ordine</h2>
+
+<!-- Mostra i dettagli dell'ordine qui -->
+
+<h2>Articoli acquistati</h2>
+
+<table class="table">
+    <tr>
+        <th>Nome dell'articolo</th>
+        <th>Quantità</th>
+        <!-- Aggiungi qui altre intestazioni di colonna per altre proprietà dell'articolo -->
+    </tr>
+
+    @foreach (var item in Model.Dettagli)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.ARTICOLO.NomeArticolo)</td>
+            <td>@Html.DisplayFor(modelItem => item.Quantita)</td>
+            <!-- Aggiungi qui altre celle per altre proprietà dell'articolo -->
+        </tr>
+    }
+</table>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Ordine.TotaleImporto, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Ordine.TotaleImporto, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+    </div>
+</div>

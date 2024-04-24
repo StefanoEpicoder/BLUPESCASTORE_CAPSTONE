@@ -1,0 +1,98 @@
+﻿@model IEnumerable<BLUPESCASTORE.Models.DETTAGLIO>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>AGGIUNGI AL CARRELLO</h2>
+
+<div class="container-fluid" id="bgMenu">
+
+    <div class="container" id="areaRiservata">
+
+        @*<p>
+                @Html.ActionLink("Create New", "Create")
+            </p>*@
+        <table class="table">
+            <tr>
+                <th class="fade-in-right">
+                    @Html.DisplayNameFor(model => model.USER.Nome)
+                </th>
+                <th class="fade-in-right">
+                    @Html.DisplayNameFor(model => model.USER.Cognome)
+                </th>
+                <th class="fade-in-right">
+                    @Html.DisplayNameFor(model => model.USER.Cod_Fiscale)
+                </th>
+                <th class="fade-in-right">
+                    @Html.DisplayNameFor(model => model.USER.Citta)
+                </th>
+                <th class="fade-in-right">
+                    @Html.DisplayNameFor(model => model.USER.Prov)
+                </th>
+                <th class="fade-in-right">
+                    @Html.DisplayNameFor(model => model.USER.Tel_Cell)
+                </th>
+                <th class="fade-in-right">
+                    @Html.DisplayNameFor(model => model.USER.email)
+                </th>
+
+                <th class="fade-in-right">
+                    @Html.DisplayNameFor(model => model.ARTICOLO.NomeArticolo)
+                </th>
+
+                <th class="fade-in-right">
+                    @Html.DisplayNameFor(model => model.Quantita)
+                </th>
+                <th class="fade-in-right">
+                    @Html.DisplayNameFor(model => model.PrezzoTotale)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.USER.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.USER.Cognome)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.USER.Cod_Fiscale)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.USER.Citta)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.USER.Prov)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.USER.Tel_Cell)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.USER.email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ARTICOLO.NomeArticolo)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantita)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PrezzoTotale)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Modifica", "Edit", new { id = item.IdDettaglio }) |
+
+                        @Html.ActionLink("Elimina", "Delete", new { id = item.IdDettaglio })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

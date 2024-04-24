@@ -1,0 +1,158 @@
+﻿@model IEnumerable<BLUPESCASTORE.Models.ARTICOLO>
+
+<h1 style="margin-top:100px">Articoli per categoria</h1>
+
+<div class="d-flex justify-content-center flex-wrap">
+    @foreach (var articolo in Model)
+    {
+        <div class="card fade-in-right m-3" style="width: 20rem; height: 100%; min-height: 500px;">
+            <img src="~/Content/img/@Html.DisplayFor(modelItem => articolo.Foto)" class="card-img-top" alt="@Html.DisplayFor(modelItem => articolo.NomeArticolo)">
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(modelItem => articolo.NomeArticolo)</h5>
+                <p class="card-text short-text">@Html.DisplayFor(modelItem => articolo.Descrizione)</p>
+                @if (!User.IsInRole("Amministratore"))
+                {
+                    <div class="card-text qta">
+                        <h5 class="card-title quantita"><input type="number" min="1" step="1" class="quantity-input" data-id="@articolo.IdArticolo" /></h5>
+                    </div>
+                }
+                <div class="card-text">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => articolo.Prezzo)</h5>
+                </div>
+                @if (!User.IsInRole("Amministratore"))
+                {
+                    <div id="contBtn">
+                        <a href="#" data-id="@articolo.IdArticolo" class="OrdinaBtn" style="white-space: nowrap; cursor: pointer; color: #ff6347; ">Aggiungi al carrello</a>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+<!--SCRIPT PER GESTIRE IL TOTALE DEI CARATTERI NELLA DESCRIZIONE-->
+<script>$(document).ready(function () {
+        var showChar = 40;
+        var ellipsestext = "...";
+        var moretext = "Mostra di più";
+        var lesstext = "Mostra meno";
+        $('.short-text').each(function () {
+            var content = $(this).html();
+
+            if (content.length > showChar) {
+                var c = content.substr(0, showChar);
+                var h = content.substr(showChar, content.length - showChar);
+
+                var html = c + '<span class="moreellipses">' + ellipsestext + '&nbsp;</span><span class="morecontent"><span>' + h + '</span></span><br><a href="" class="morelink">' + moretext + '</a>';
+
+                $(this).html(html);
+                $(this).find('.morecontent').hide(); // Nascondi il testo esteso all'inizio
+            }
+
+        });
+
+        $(".morelink").click(function () {
+            if ($(this).hasClass("less")) {
+                $(this).removeClass("less");
+                $(this).html(moretext);
+                $(this).siblings('.morecontent').hide();
+            } else {
+                $(this).addClass("less");
+                $(this).html(lesstext);
+                $(this).siblings('.morecontent').show();
+            }
+            return false;
+        });
+
+    });</script>
+
+<!--SCRIPT PER GESTIRE IL TITOLO DELLA CARD-->
+
+<script>$(document).ready(function () {
+        $('.card-title').each(function () {
+            var title = $(this).text();
+            if (title.length > 30) {
+                $(this).text(title.substring(0, 30) + '...');
+            }
+        });
+    });</script>
+
+
+
+<script type="text/javascript">$('.categoria-titolo').click(function (event) {
+        event.preventDefault();
+        var categoria = $(this).data('categoria');
+        var cards = $('.card-container[data-categoria="' + categoria + '"] .card');
+
+        if (cards.is(':visible')) {
+            cards.hide();
+        } else {
+            cards.show();
+        }
+
+        controllaCard();
+    });
+
+    function controllaCard() {
+        if ($('.card:visible').length == 0) {
+            $('#categorie').addClass('d-flex');
+        } else {
+            $('#categorie').removeClass('d-flex');
+        }
+    }
+
+    $(document).ready(function () {
+        controllaCard();
+    });</script>
+
+@if (!User.IsInRole("Amministratore"))
+{
+    <button onclick="cartFunction()" id="cartBtn" title="Vai al carrello" data-aos="zoom-in">
+        <i class="bi bi-cart4"></i> Carrello
+    </button>
+}
+
+<script>function cartFunction() {
+        window.location.href = '/Dettaglio/Carrello';
+    }</script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    var baseUrl = "/Dettaglio/Index/";
+    var isAuthenticated = '@User.Identity.IsAuthenticated' === 'True';
+    $(".OrdinaBtn").click(function (event) {
+        event.preventDefault();
+        var id = $(this).data("id");
+        var quantity = $(this).parent("#contBtn").siblings(".qta").children(".quantita").children("input").val();
+
+        if (!isAuthenticated)
+        {
+            swal({
+                title: "Utente non loggato",
+                text: "Effettua il login!",
+                icon: "warning",
+                button: "OK",
+            });
+        }
+        else
+        {
+            $.ajax({
+                url: baseUrl,
+                type: "GET",
+                data: { id: id, quantity: quantity },
+                success: function (response) {
+                    swal("Fatto!", "Articolo aggiunto con successo!", "success");
+                    $('.card-text.qta').find('input').val('');
+                },
+                error: function (xhr, status, error) {
+                    swal("Errore!", "Errore in fase di aggiunta articolo: " + error, "error");
+                }
+            });
+        }
+    });
+});
+</script>
+
+<script type="text/javascript">$(document).ready(function () {
+        $('.fade-in-right').addClass('animated fadeInRight');
+    });</script>

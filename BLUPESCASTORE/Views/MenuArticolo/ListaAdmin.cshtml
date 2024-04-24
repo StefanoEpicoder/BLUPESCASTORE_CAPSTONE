@@ -1,0 +1,80 @@
+﻿@model IEnumerable<BLUPESCASTORE.Models.ARTICOLO>
+
+@{
+    ViewBag.Title = "ListaAdmin";
+}
+
+<h2>AMMINISTRAZIONE</h2>
+
+<div class="container-fluid" id="bgMenu">
+    <div class="container d-flex justify-content-center" id="areaRiservata">
+        <div class="table1-wrapper">
+
+            <div class="container" id="areaRiservata">
+                <p>
+                    @Html.ActionLink("Crea articolo", "Create", null, new { @class = "btn btn-success d-block" })
+                </p>
+                <div class="table1-wrapper">
+                    <table class="table1">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NomeArticolo)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Descrizione)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Prezzo)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Foto)
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NomeArticolo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Descrizione)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Prezzo)
+                                </td>
+                                <td class="miniatura">
+                                    @{
+                                        var imagePath = "~/Content/img/" + Html.DisplayFor(modelItem => item.Foto);
+                                        var defaultImagePath = "~/Content/img/default.jpg"; // Percorso dell'immagine predefinita
+                                    }
+                                    <img src="@Url.Content(File.Exists(Server.MapPath(imagePath)) ? imagePath : defaultImagePath)" />
+                                </td>
+
+
+
+                                <td>
+                                    @Html.ActionLink("Modifica", "Edit", new { id = item.IdArticolo }, new { @class = "btn btn-warning" })
+                                    @Html.ActionLink("Dettagli", "Details", new { id = item.IdArticolo }, new { @class = "btn btn-info" })
+                                    @Html.ActionLink("Elimina", "Delete", new { id = item.IdArticolo }, new { @class = "btn btn-danger" })
+
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>window.onload = function () {
+        var navbarHeight = document.querySelector('.pippo').offsetHeight;
+        var thElements = document.querySelectorAll('.table1 th');
+
+        thElements.forEach(function (th) {
+            th.style.top = navbarHeight + 'px';
+        });
+    };</script>

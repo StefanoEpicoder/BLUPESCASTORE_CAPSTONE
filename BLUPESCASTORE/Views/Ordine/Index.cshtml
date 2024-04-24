@@ -1,0 +1,138 @@
+﻿@model List<BLUPESCASTORE.Models.OrdinePagamentoViewModel>
+
+@{
+    ViewBag.Title = "Archivio Ordini";
+}
+
+<h2>ARCHIVIO ORDINI</h2>
+
+<div class="container-fluid" id="bgMenu">
+    <div class="container d-flex justify-content-center" id="areaRiservata">
+        <div class="table1-wrapper">
+            <table class="table1">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model[0].Ordine.USER.Nome)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model[0].Ordine.USER.Cognome)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model[0].Pagamento.Indirizzo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model[0].Pagamento.Indirizzo2)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model[0].Pagamento.Paese)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model[0].Pagamento.Regione)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model[0].Pagamento.Citta)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model[0].Pagamento.CAP)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model[0].Ordine.NumeroOrdine)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model[0].Pagamento.DataPagamento)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model[0].Ordine.Note)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model[0].Ordine.Confermato)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model[0].Ordine.TotaleImporto)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model[0].Ordine.Evaso)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model[0].Pagamento.IdPagamento)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ordine.USER.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ordine.USER.Cognome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pagamento.Indirizzo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pagamento.Indirizzo2)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pagamento.Paese)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pagamento.Regione)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pagamento.Citta)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pagamento.CAP)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ordine.NumeroOrdine)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pagamento.DataPagamento)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ordine.Note)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ordine.Confermato)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ordine.TotaleImporto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ordine.Evaso)
+                        </td>
+                        <td>
+                            @if (item.Pagamento != null)
+                            {
+                                @Html.DisplayFor(modelItem => item.Pagamento.IdPagamento)
+                            }
+                            else
+                            {
+                                @:N/A
+                            }
+                        </td>
+                        <td>
+                            @Html.ActionLink("Modifica", "Edit", new { id = item.Ordine.IdOrdine }, new { @class = "btn btn-warning" })
+                            @Html.ActionLink("Elimina", "Delete", new { id = item.Ordine.IdOrdine }, new { @class = "btn btn-danger" })
+                        </td>
+
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script>window.onload = function () {
+        var navbarHeight = document.querySelector('.pippo').offsetHeight;
+        var thElements = document.querySelectorAll('.table1 th');
+
+        thElements.forEach(function (th) {
+            th.style.top = navbarHeight + 'px';
+        });
+    };</script>

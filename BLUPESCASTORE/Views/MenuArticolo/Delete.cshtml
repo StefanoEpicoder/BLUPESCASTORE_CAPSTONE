@@ -1,0 +1,62 @@
+﻿@model BLUPESCASTORE.Models.ARTICOLO
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>ELIMINA ARTICOLO</h2>
+
+<div class="container-fluid" id="bgMenu">
+
+    <div class="container" id="areaRiservata">
+
+        <div>
+            <h3>Sei sicuro di voler eliminare questo articolo?</h3>
+
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.NomeArticolo)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.NomeArticolo)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Descrizione)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Descrizione)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Prezzo)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Prezzo)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Foto)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Foto)
+                </dd>
+
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Elimina" class="btn btn-default" id="salva" /> |
+                    @Html.ActionLink("Annulla", "Index")
+                </div>
+            }
+        </div>
+    </div>
+</div>

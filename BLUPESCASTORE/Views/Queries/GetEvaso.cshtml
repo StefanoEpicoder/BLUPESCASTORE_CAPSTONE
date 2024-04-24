@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "GetEvaso";
+}
+
+
+<h2 class="text-center m-3">Totale ordini evasi</h2>
+
+<div id="showInfo" class="text-center"></div>
+
+<button class="btn btn-warning mx-auto d-block" onclick="GetEvaso()">Visualizza gli ordini evasi</button>
+
+<script type="text/javascript">
+    function GetEvaso() {
+        $.ajax({
+            method: 'GET',
+            url: '/OrdiniEvasi/GetEvaso',
+            success: function (data) {
+                var evasoRecords = data;
+                var html = "<ul>";
+                for (var i = 0; i < evasoRecords.length; i++) {
+                    html += "<li>" + evasoRecords[i] + "</li>";
+                }
+                html += "</ul>";
+                $("#showInfo").html(html);
+            },
+            error: function (xhr, status, error) {
+                console.error("Errore nella richiesta AJAX:", error);
+            }
+        });
+    }
+</script>
