@@ -254,69 +254,83 @@ namespace BLUPESCASTORE.Controllers
         [HttpPost]
         public ActionResult Charge(string stripeEmail, string stripeToken, int idOrdine, string nome, string cognome, string email, string indirizzo, string indirizzo2, string paese, string regione, string citta, string cap)
         {
-            ORDINE o = db.ORDINE.Find(idOrdine);
-            if (o == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            StripeConfiguration.ApiKey = "sk_test_51P6CweEooIqhcjUCAgQqptq1wYYDszK9rmadX5KJwRtllqqwv3s56bnZpdRhTtpsx3X0Zr2ky4MLnfO34Dpkcg4P004SeoWwmo";
-
-            var customers = new Stripe.CustomerService();
-            var charges = new Stripe.ChargeService();
-
-            var customer = customers.Create(new Stripe.CustomerCreateOptions
-            {
-                Email = stripeEmail,
-                Source = stripeToken
-            });
-
-            decimal importoArrotondato = Math.Round(o.TotaleImporto, 2);
-            var charge = charges.Create(new Stripe.ChargeCreateOptions
-            {
-                Amount = (int)(importoArrotondato * 100),
-                Description = "Pagamento per ordine " + o.IdOrdine,
-                Currency = "eur",
-                Customer = customer.Id
-            });
-
-            // Se il pagamento è stato effettuato con successo, salva l'ordine e il pagamento nel database
-            if (charge.Paid)
-            {
-                USER u = db.USER.Where(x => x.Username == User.Identity.Name).FirstOrDefault();
-                var pagamento = new PAGAMENTI
+                ORDINE o = db.ORDINE.Find(idOrdine);
+                if (o == null)
                 {
-                    IdUser = u.IdUser,
-                    IdOrdine = o.IdOrdine,
-                    Importo = o.TotaleImporto,
-                    DataPagamento = DateTime.Now,
-                    StripeChargeId = charge.Id,
-                    Nome = nome,
-                    Cognome = cognome,
-                    Email = email,
-                    Indirizzo = indirizzo,
-                    Indirizzo2 = indirizzo2,
-                    Paese = paese,
-                    Regione = regione,
-                    Citta = citta,
-                    CAP = cap
-                };
-                db.PAGAMENTI.Add(pagamento);
-
-                // Conferma l'ordine
-                o.Confermato = "Si";
-                db.Entry(o).State = EntityState.Modified;
-
-                db.SaveChanges();
-
-                List<DETTAGLIO> d = db.DETTAGLIO.Where(x => x.IdOrdine == null && x.IdUser == u.IdUser).ToList();
-                foreach (var dettaglio in d)
-                {
-                    db.DETTAGLIO.Remove(dettaglio);
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                db.SaveChanges();
+
+                StripeConfiguration.ApiKey = "sk_test_51P6CweEooIqhcjUCAgQqptq1wYYDszK9rmadX5KJwRtllqqwv3s56bnZpdRhTtpsx3X0Zr2ky4MLnfO34Dpkcg4P004SeoWwmo";
+
+                var customers = new Stripe.CustomerService();
+                var charges = new Stripe.ChargeService();
+
+                var customer = customers.Create(new Stripe.CustomerCreateOptions
+                {
+                    Email = stripeEmail,
+                    Source = stripeToken
+                });
+
+                decimal importoArrotondato = Math.Round(o.TotaleImporto, 2);
+                var charge = charges.Create(new Stripe.ChargeCreateOptions
+                {
+                    Amount = (int)(importoArrotondato * 100),
+                    Description = "Pagamento per ordine " + o.IdOrdine,
+                    Currency = "eur",
+                    Customer = customer.Id
+                });
+
+                // Se il pagamento è stato effettuato con successo, salva l'ordine e il pagamento nel database
+                if (charge.Paid)
+                {
+                    USER u = db.USER.Where(x => x.Username == User.Identity.Name).FirstOrDefault();
+                    var pagamento = new PAGAMENTI
+                    {
+                        IdUser = u.IdUser,
+                        IdOrdine = o.IdOrdine,
+                        Importo = o.TotaleImporto,
+                        DataPagamento = DateTime.Now,
+                        StripeChargeId = charge.Id,
+                        Nome = nome,
+                        Cognome = cognome,
+                        Email = email,
+                        Indirizzo = indirizzo,
+                        Indirizzo2 = indirizzo2,
+                        Paese = paese,
+                        Regione = regione,
+                        Citta = citta,
+                        CAP = cap
+                    };
+                    db.PAGAMENTI.Add(pagamento);
+                    db.SaveChanges();
+
+                    // Conferma l'ordine dopo che il pagamento è stato effettuato con successo
+                    o.Confermato = "Si";
+                    db.Entry(o).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    List<DETTAGLIO> d = db.DETTAGLIO.Where(x => x.IdOrdine == null && x.IdUser == u.IdUser).ToList();
+                    foreach (var dettaglio in d)
+                    {
+                        db.DETTAGLIO.Remove(dettaglio);
+                    }
+                    db.SaveChanges();
+                }
+                else
+                {
+                    TempData["ToastMessage"] = "Il pagamento non è riuscito. Riprova.";
+                    return RedirectToAction("Charge", new { id = o.IdOrdine });
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ToastMessage"] = "Si è verificato un errore durante il processo di pagamento: " + ex.Message;
+                return RedirectToAction("Charge", new { id = idOrdine });
             }
 
+            TempData["ToastMessage"] = "Il pagamento è stato effettuato con successo.";
             return RedirectToAction("OrdineConfermato");
         }
 

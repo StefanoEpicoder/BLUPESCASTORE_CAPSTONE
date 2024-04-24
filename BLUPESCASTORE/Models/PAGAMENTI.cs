@@ -31,12 +31,19 @@ namespace BLUPESCASTORE.Models
 
         public virtual DETTAGLIO TotaleImporto { get; internal set; }
         public string Nome { get; internal set; }
+
+        [Display(Name = "Indirizzo 2 (opzionale)")]
         public string Indirizzo2 { get; internal set; }
         public string Cognome { get; internal set; }
+
+        [Display(Name = "E-mail")]
         public string Email { get; internal set; }
         public string Indirizzo { get; internal set; }
         public string Paese { get; internal set; }
         public string Regione { get; internal set; }
+
+
+        [Display(Name = "Città")]
         public string Citta { get; internal set; }
         public string CAP { get; internal set; }
     }

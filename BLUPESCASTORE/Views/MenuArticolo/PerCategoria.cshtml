@@ -10,28 +10,37 @@
             <div class="card-body">
                 <h5 class="card-title">@Html.DisplayFor(modelItem => articolo.NomeArticolo)</h5>
                 <p class="card-text short-text">@Html.DisplayFor(modelItem => articolo.Descrizione)</p>
-                @if (!User.IsInRole("Amministratore"))
+                @if (articolo.Esaurito == true)
                 {
-                    <div class="card-text qta">
-                        <h5 class="card-title quantita"><input type="number" min="1" step="1" class="quantity-input" data-id="@articolo.IdArticolo" /></h5>
-                    </div>
+                    <div class="alert alert-warning">Esaurito</div>
                 }
-                <div class="card-text">
-                    <h5 class="card-title">@Html.DisplayFor(modelItem => articolo.Prezzo)</h5>
-                </div>
-                @if (!User.IsInRole("Amministratore"))
+                else
                 {
-                    <div id="contBtn">
-                        <a href="#" data-id="@articolo.IdArticolo" class="OrdinaBtn" style="white-space: nowrap; cursor: pointer; color: #ff6347; ">Aggiungi al carrello</a>
+                    if (!User.IsInRole("Amministratore"))
+                    {
+                        <div class="card-text qta">
+                            <h5 class="card-title quantita"><input type="number" min="1" step="1" class="quantity-input" data-id="@articolo.IdArticolo" /></h5>
+                        </div>
+                    }
+                    <div class="card-text">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => articolo.Prezzo)</h5>
                     </div>
+                    if (!User.IsInRole("Amministratore"))
+                    {
+                        <div id="contBtn">
+                            <a href="#" data-id="@articolo.IdArticolo" class="OrdinaBtn" style="white-space: nowrap; cursor: pointer; color: #ff6347; ">Aggiungi al carrello</a>
+                        </div>
+                    }
                 }
             </div>
         </div>
     }
 </div>
 
+
 <!--SCRIPT PER GESTIRE IL TOTALE DEI CARATTERI NELLA DESCRIZIONE-->
-<script>$(document).ready(function () {
+<script>
+    $(document).ready(function () {
         var showChar = 40;
         var ellipsestext = "...";
         var moretext = "Mostra di più";
@@ -68,7 +77,8 @@
 
 <!--SCRIPT PER GESTIRE IL TITOLO DELLA CARD-->
 
-<script>$(document).ready(function () {
+<script>
+    $(document).ready(function () {
         $('.card-title').each(function () {
             var title = $(this).text();
             if (title.length > 30) {
@@ -79,7 +89,8 @@
 
 
 
-<script type="text/javascript">$('.categoria-titolo').click(function (event) {
+<script type="text/javascript">
+    $('.categoria-titolo').click(function (event) {
         event.preventDefault();
         var categoria = $(this).data('categoria');
         var cards = $('.card-container[data-categoria="' + categoria + '"] .card');
@@ -112,7 +123,8 @@
     </button>
 }
 
-<script>function cartFunction() {
+<script>
+    function cartFunction() {
         window.location.href = '/Dettaglio/Carrello';
     }</script>
 
@@ -153,6 +165,7 @@ $(document).ready(function () {
 });
 </script>
 
-<script type="text/javascript">$(document).ready(function () {
+<script type="text/javascript">
+    $(document).ready(function () {
         $('.fade-in-right').addClass('animated fadeInRight');
     });</script>

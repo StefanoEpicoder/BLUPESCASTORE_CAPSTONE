@@ -7,7 +7,7 @@
 <h2>STORICO ORDINI </h2>
 <div class="container-fluid" id="bgMenu">
     <div class="container d-flex justify-content-center" id="areaRiservata">
-        <div class="table1-wrapper">
+        <div class="wrapper">
             <table class="table1">
                 <tr>
                     <th>
@@ -95,7 +95,7 @@
                             @Html.DisplayFor(modelItem => item.Ordine.Evaso)
                         </td>
                         <td>
-                            @Html.ActionLink("Mostra dettagli", "Details", new { id = item.Ordine.IdOrdine })
+                            @Html.ActionLink("Mostra dettagli", "Details", new { id = item.Ordine.IdOrdine }, new { @class = "btn btn-info"})
                         </td>
                     </tr>
                 }

@@ -41,6 +41,8 @@
         public virtual ICollection<DETTAGLIO> DETTAGLIO { get; set; }
 
         public virtual CATEGORIA CATEGORIA { get; set; }
+        public bool? Esaurito { get; set; }
+
 
     }
 }

@@ -32,18 +32,33 @@
                                         <div class="card-body">
                                             <h5 class="card-title">@Html.DisplayFor(modelItem => articolo.NomeArticolo)</h5>
                                             <p class="card-text short-text">@Html.DisplayFor(modelItem => articolo.Descrizione)</p>
+                                            @if (articolo.Esaurito == true)
+                                            {
+                                                <div class="alert alert-warning">Esaurito</div>
+                                            }
+                                            else
+                                            {
+                                                // Mostra i bottoni e i campi di input solo se l'articolo non è esaurito
+                                                <div class="card-text qta">
+                                                    <h5 class="card-title quantita"><input type="number" min="1" step="1" class="quantity-input" data-id="@articolo.IdArticolo" /></h5>
+                                                </div>
+                                                <div class="card-text">
+                                                    <h5 class="card-title">@Html.DisplayFor(modelItem => articolo.Prezzo)</h5>
+                                                </div>
+                                                <div id="contBtn">
+                                                    <a href="#" data-id="@articolo.IdArticolo" class="OrdinaBtn" style="white-space: nowrap; cursor: pointer; color: #ff6347; ">Aggiungi al carrello</a>
+                                                </div>
+                                            }
+
                                         </div>
-                                        @if (!User.IsInRole("Amministratore"))
+                                        @if (!User.IsInRole("Amministratore") && articolo.Esaurito.HasValue && !articolo.Esaurito.Value)
                                         {
                                             <div class="card-text qta">
                                                 <h5 class="card-title quantita"><input type="number" min="1" step="1" class="quantity-input" data-id="@articolo.IdArticolo" /></h5>
                                             </div>
-                                        }
-                                        <div class="card-text">
-                                            <h5 class="card-title">@Html.DisplayFor(modelItem => articolo.Prezzo)</h5>
-                                        </div>
-                                        @if (!User.IsInRole("Amministratore"))
-                                        {
+                                            <div class="card-text">
+                                                <h5 class="card-title">@Html.DisplayFor(modelItem => articolo.Prezzo)</h5>
+                                            </div>
                                             <div id="contBtn">
                                                 <a href="#" data-id="@articolo.IdArticolo" class="OrdinaBtn" style="white-space: nowrap; cursor: pointer; color: #ff6347; ">Aggiungi al carrello</a>
                                             </div>
@@ -66,6 +81,7 @@
 
 
 
+
 @if (User.Identity.IsAuthenticated && !User.IsInRole("Amministratore"))
 {
     <button onclick="cartFunction()" id="cartBtn" title="Vai al carrello" data-aos="zoom-in">
@@ -76,9 +92,11 @@
 
 
 
-<script>function cartFunction() {
+<script>
+    function cartFunction() {
         window.location.href = '/Dettaglio/Carrello';
-    }</script>
+    }
+</script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -91,7 +109,8 @@ $(document).ready(function() {
 
 
 <!--SCRIPT PER GESTIRE IL TOTALE DEI CARATTERI NELLA DESCRIZIONE-->
-<script>$(document).ready(function () {
+<script>
+    $(document).ready(function () {
         var showChar = 40;
         var ellipsestext = "...";
         var moretext = "Mostra di più";
@@ -124,23 +143,28 @@ $(document).ready(function() {
             return false;
         });
 
-    });</script>
+    });
+
+</script>
 
 <!--SCRIPT PER GESTIRE IL TITOLO DELLA CARD-->
 
-<script>$(document).ready(function () {
+<script>
+    $(document).ready(function () {
         $('.card-title').each(function () {
             var title = $(this).text();
             if (title.length > 30) {
                 $(this).text(title.substring(0, 30) + '...');
             }
         });
-    });</script>
+    });
+</script>
 
 
 
 
-<script type="text/javascript">$('.categoria-titolo').click(function (event) {
+<script type="text/javascript">
+    $('.categoria-titolo').click(function (event) {
         event.preventDefault();
         var categoria = $(this).data('categoria');
         var cards = $('.card-container[data-categoria="' + categoria + '"] .card');
@@ -164,7 +188,8 @@ $(document).ready(function() {
 
     $(document).ready(function () {
         controllaCard();
-    });</script>
+    });
+</script>
 
 @if (!User.IsInRole("Amministratore"))
 {
@@ -173,9 +198,11 @@ $(document).ready(function() {
     </button>
 }
 
-<script>function cartFunction() {
+<script>
+    function cartFunction() {
         window.location.href = '/Dettaglio/Carrello';
-    }</script>
+    }
+</script>
 
 <script>
 // Funzione per aggiornare il conteggio del carrello
@@ -237,22 +264,27 @@ $(document).ready(function () {
 
 </script>
 
-<script>$(window).scroll(function () {
+<script>
+    $(window).scroll(function () {
         if ($(this).scrollTop() > 100) { // Imposta la posizione da cui inizia lo scrolling
             $('#menuCategorie').addClass('fixed');
         } else {
             $('#menuCategorie').removeClass('fixed');
         }
-    });</script>
+    });
+</script>
 
 
 
-<script type="text/javascript">$(document).ready(function () {
+<script type="text/javascript">
+    $(document).ready(function () {
         $('.fade-in-right').addClass('animated fadeInRight');
-    });</script>
+    });
+</script>
 
 
-<script>$(window).scroll(function () {
+<script>
+    $(window).scroll(function () {
         var footerTop = $('#footer').offset().top; // Ottieni la posizione del footer
         var categoryBottom = $('#menuCategorie').offset().top + $('#menuCategorie').height(); // Ottieni la posizione inferiore della colonna delle categorie
 
@@ -261,4 +293,6 @@ $(document).ready(function () {
         } else {
             $('#menuCategorie').css('position', 'fixed'); // Altrimenti, rendi la posizione fixed
         }
-    });</script>
+    });
+
+</script>

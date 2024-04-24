@@ -73,6 +73,12 @@ namespace BLUPESCASTORE.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Imposta un valore predefinito per Esaurito se è null
+                if (aRTICOLO.Esaurito == null)
+                {
+                    aRTICOLO.Esaurito = false; // o qualsiasi valore predefinito che desideri
+                }
+
                 File.SaveAs(Server.MapPath("/Content/img/" + File.FileName));
                 aRTICOLO.Foto = File.FileName;
 
@@ -83,6 +89,7 @@ namespace BLUPESCASTORE.Controllers
 
             return View(aRTICOLO);
         }
+
 
         // GET: MenuArticolo/Edit/5
         public ActionResult Edit(int? id)
@@ -116,24 +123,40 @@ namespace BLUPESCASTORE.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ARTICOLO aRTICOLO, HttpPostedFileBase File)
         {
-
-            if (File != null)
+            if (ModelState.IsValid)
             {
-                string Path = Server.MapPath("/Content/img/" + File.FileName);
-                File.SaveAs(Path);
-                aRTICOLO.Foto = File.FileName;
-            }
-            else
-            {
-                ARTICOLO p = db.ARTICOLO.Find(aRTICOLO.IdArticolo);
-                aRTICOLO.Foto = p.Foto;
-            }
-            ModelDBcontext db1 = new ModelDBcontext();
-            db1.Entry(aRTICOLO).State = EntityState.Modified;
-            db1.SaveChanges();
+                var existingArticolo = db.ARTICOLO.Find(aRTICOLO.IdArticolo);
 
-            return RedirectToAction("ListaAdmin");
+                if (File != null)
+                {
+                    string Path = Server.MapPath("/Content/img/" + File.FileName);
+                    File.SaveAs(Path);
+                    existingArticolo.Foto = File.FileName;
+                }
+
+                // Imposta un valore predefinito per Esaurito se è null
+                if (aRTICOLO.Esaurito == null)
+                {
+                    existingArticolo.Esaurito = false; // o qualsiasi valore predefinito che desideri
+                }
+
+                existingArticolo.NomeArticolo = aRTICOLO.NomeArticolo;
+                existingArticolo.Descrizione = aRTICOLO.Descrizione;
+                existingArticolo.Prezzo = aRTICOLO.Prezzo;
+                // Aggiungi qui eventuali altre proprietà che desideri aggiornare
+
+                db.Entry(existingArticolo).State = EntityState.Modified;
+                db.SaveChanges();
+
+                return RedirectToAction("ListaAdmin");
+            }
+
+            return View(aRTICOLO);
         }
+
+
+
+
 
         // GET: MenuArticolo/Delete/5
         public ActionResult Delete(int? id)
