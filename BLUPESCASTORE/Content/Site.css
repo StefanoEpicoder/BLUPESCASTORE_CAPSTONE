@@ -64,9 +64,7 @@ li {
     --bs-navbar-padding-y: 0;
 }
 
-footer {
-    margin-top: auto;
-}
+
 
 
 /*.main {
@@ -124,7 +122,7 @@ label {
 }
 
 .card img, svg {
-    max-height: 200px;
+    max-height: 100px;
     min-height: 100px;
     border-radius: 10px;
     vertical-align: middle;
@@ -169,6 +167,7 @@ label {
 h5.card-title {
     color: black;
     font-size: 15px;
+    padding:10px !important;
 }
 
 .card-text {
@@ -268,6 +267,7 @@ h5 {
     background: url(img/background4.jpg);
     background-size: cover;
     background-position: center;
+    opacity: 0.8 !important; /* Add opacity to the images */
 }
 
 
@@ -2050,5 +2050,16 @@ section.Carosello {
 
 
 
+
     }
+}
+
+
+.SfondoCategorie {
+    background-image: url('img/Sfondo_categorie.jpg');
+    background-color: rgba(255, 255, 255, 0.5);
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-top: 40px;
 }

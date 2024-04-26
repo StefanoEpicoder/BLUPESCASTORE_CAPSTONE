@@ -21,8 +21,8 @@ namespace BLUPESCASTORE.Models
         public virtual DbSet<CATEGORIA> CATEGORIA { get; set; }
 
         public virtual DbSet<PAGAMENTI> PAGAMENTI { get; set; }
-        public object Articoli { get; internal set; }
 
+        public virtual DbSet<PREFERITI> PREFERITI { get; set; }
 
         /*public virtual DbSet<CLIENTI> CLIENTI { get; set; }*/
 

@@ -20,6 +20,9 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
@@ -45,7 +48,8 @@
                     toastClass = "bg-danger"; // Change to error
                 }
 
-                <script>$(document).ready(function () {
+                <script>
+    $(document).ready(function () {
                         $('.toast').toast('show');
                     });</script>
                 <div id="toast-container">
@@ -76,7 +80,7 @@
 
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0" data-aos="fade-left">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center" data-aos="fade-left">
                         <li class="nav-item me-4" aria-current="page">@Html.ActionLink("Registrati", "RegistraUtente", "Registrazione")</li>
                         <li class="nav-item me-4" aria-current="page">@Html.ActionLink("Home", "Index", "Home")</li>
                         @if (User.Identity.IsAuthenticated)
@@ -94,6 +98,12 @@
                         }
 
                         <li class="nav-item me-4" aria-current="page">@Html.ActionLink("Negozio", "Index", "MenuArticolo")</li>
+                        @using (Html.BeginForm("Cerca", "MenuArticolo", FormMethod.Get))
+                        {
+                            <div style="display: flex; justify-content: space-between;">
+                                <input class="form-control mr-sm-2" type="search" name="searchTerm" placeholder="Cerca articolo..." aria-label="Search" style="width: 300px;">
+                            </div>
+                        }
                         <li class="nav-item me-4 d-lg-none" aria-current="page">@Html.ActionLink("Categorie", "Index", "Categorie")</li>
 
                         @if (User.Identity.IsAuthenticated)
@@ -115,6 +125,14 @@
                                     <span class="cart-count badge badge-light" style="background-color: red; color: white;">@Html.Action("GetCount", "Dettaglio")</span>
                                 </a>
                             </li>
+                            <li class="nav-item me-4" aria-current="page">
+                                <a href="@Url.Action("Preferiti", "Preferiti")" class="" style="color:inherit" role="button">
+                                    <i class='fa fa-heart fs-4 me-2' style='color:red;'></i> Preferiti
+                                </a>
+                            </li>
+
+
+
                         }
 
                         <a target="_blank"
@@ -148,22 +166,27 @@
 
                         </a>
 
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item me-4" aria-current="page">
+                                <span class="navbar-text" style="color: #ff6347;">
+                                    Utente: <strong style="color: white;">@User.Identity.Name</strong>
+                                </span>
+                            </li>
+                        }
+
 
                     </ul>
                 </div>
             </div>
 
 
-            @using (Html.BeginForm("Cerca", "MenuArticolo", FormMethod.Get))
-            {
-                <div style="display: flex; justify-content: space-between;">
-                    <input class="form-control mr-sm-2" type="search" name="searchTerm" placeholder="Cerca articolo..." aria-label="Search" style="width: 300px;">
-                    <button class="btn btn-success my-2 my-sm-0 r" type="submit">VAI</button>
-                </div>
-            }
+
 
 
         </nav>
+
+
         <!-- ABOUT -->
 
 
@@ -183,7 +206,8 @@
     <!-- Top Button -->
     <button onclick="topFunction()" id="backToTopBtn" title="Torna all'inizio" data-aos="zoom-in">Top</button>
 
-    <script>// Show the buttons when the page loads
+    <script>
+    // Show the buttons when the page loads
         // Ottieni il bottone
         var mybutton = document.getElementById("backToTopBtn");
 
@@ -226,15 +250,64 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
 
+
+    <img src="~/Content/img/banner_metodi_pagamento.png" alt="Descrizione dell'immagine" style="display: block; width: 100%; height:160px">
+
     <footer class="pippo">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <h3 class="fs-6 text-white">© 2024 Stefano D'Antoni</h3>
-                </div>
-            </div>
-        </div>
-    </footer>
+       <div class="container py-5">
+           <div class="row py-3 flex-wrap justify-content-between">
+
+               <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+
+                   <ul class="list-unstyled mb-0">
+                       <li class="mb-2"><a href="#" class="text-white">Contattaci</a></li>
+                       <li class="mb-2"><a href="#" class="text-white">Su di noi</a></li>
+                       <li class="mb-2"><a href="#" class="text-white">Storie</a></li>
+
+                   </ul>
+               </div>
+
+               <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+
+                   <ul class="list-unstyled mb-0">
+                       <li class="mb-2"><a href="#" class="text-white">Pagamenti</a></li>
+                       <li class="mb-2"><a href="#" class="text-white">Spedizioni</a></li>
+                       <li class="mb-2"><a href="#" class="text-white">Ordini sospesi</a></li>
+                       <li class="mb-2"><a href="#" class="text-white">Rimborsi</a></li>
+                   </ul>
+               </div>
+
+               <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+
+                   <ul class="list-unstyled mb-0">
+                       <li class="mb-2"><a href="#" class="text-white">Return Policy</a></li>
+                       <li class="mb-2"><a href="#" class="text-white">Termini di utilizzo</a></li>
+                       <li class="mb-2"><a href="#" class="text-white">Privacy</a></li>
+                   </ul>
+               </div>
+               <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+
+                   <ul class="list-unstyled mb-0">
+                       <li class="mb-2"><a href="#" class="text-white">Login</a></li>
+                       <li class="mb-2"><a href="#" class="text-white">Registrati</a></li>
+                       <li class="mb-2"><a href="#" class="text-white">Negozio</a></li>
+                   </ul>
+               </div>
+
+           </div>
+       </div>
+       <hr class="p-0 m-0 b-0">
+
+
+       <div class="bg-light py-2">
+           <div class="container text-center">
+               <h1 class="responsive-title" style="color: #1851C2 !important;">&copy; 2024 BLUPESCASTORE</h1>
+               <p style="color: #1851C2 !important;">Sito web realizzato da Stefano D'Antoni</p>
+
+           </div>
+       </div>
+
+   </footer>
 
 </body>
 

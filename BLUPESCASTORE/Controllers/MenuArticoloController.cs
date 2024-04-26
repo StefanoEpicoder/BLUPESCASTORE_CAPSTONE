@@ -2,8 +2,10 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+
 
 
 namespace BLUPESCASTORE.Controllers
@@ -134,11 +136,7 @@ namespace BLUPESCASTORE.Controllers
                     existingArticolo.Foto = File.FileName;
                 }
 
-                // Imposta un valore predefinito per Esaurito se è null
-                if (aRTICOLO.Esaurito == null)
-                {
-                    existingArticolo.Esaurito = false; // o qualsiasi valore predefinito che desideri
-                }
+                existingArticolo.Esaurito = aRTICOLO.Esaurito; // Aggiorna lo stato Esaurito
 
                 existingArticolo.NomeArticolo = aRTICOLO.NomeArticolo;
                 existingArticolo.Descrizione = aRTICOLO.Descrizione;
@@ -216,12 +214,11 @@ namespace BLUPESCASTORE.Controllers
             return View(articoli);
         }
 
-
-
     }
 
     public class MenuArticolo
     {
         public ARTICOLO Articolo { get; set; }
     }
+
 }

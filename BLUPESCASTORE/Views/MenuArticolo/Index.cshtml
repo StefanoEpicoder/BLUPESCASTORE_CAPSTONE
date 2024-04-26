@@ -3,76 +3,78 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<div class="container-fluid" id="bgMenu">
-    <div class="row">
-        <div class="d-flex flex-column flex-md-row">
-            <div class="category col-12 col-md-3 order-1 order-md-2 d-none d-md-block" id="menuCategorie">
-                <div class="list-group">
-                    <h1 class="responsive-title" data-aos="zoom-in">Categorie:</h1>
-                    @foreach (var categoria in Model.ArticoliPerCategoria)
-                    {
-                        <a href="@Url.Action("PerCategoria", "MenuArticolo", new { categoria = categoria.Key.NomeCategoria })" class="list-group-item list-group-item-action">@categoria.Key.NomeCategoria</a>
-                    }
-                </div>
+<div class="SfondoCategorie">
+    <h1 class="responsive-title" data-aos="zoom-in">Categorie:</h1>
+    <div class="d-flex flex-wrap justify-content-center" style="padding-bottom:40px;">
+        @foreach (var categoria in Model.ArticoliPerCategoria)
+        {
+            <div class="p-3">
+                <a href="@Url.Action("PerCategoria", "MenuArticolo", new { categoria = categoria.Key.NomeCategoria })" class=" text-uppercase rounded list-group-item list-group-item-action">@categoria.Key.NomeCategoria</a>
             </div>
-
-
-            <div class="ColArt col-12 col-md-9 order-2 order-md-1 d-flex justify-content-center">
-                <div class="flexCard container" style="text-align:center">
-                    <h1 class="responsive-title" data-aos="zoom-in">I nostri articoli:</h1>
-                    <section id="categorie" class="d-flex flex-wrap">
-                        @foreach (var categoria in Model.ArticoliPerCategoria)
-                        {
-                            <div class="card-container d-flex flex-wrap justify-content-center" data-categoria="@categoria.Key.NomeCategoria" style="display: none;">
-                                @foreach (var articolo in categoria.Value)
-                                {
-                                    <div class="card fade-in-right m-3" style="width: 20rem; height: 100%; min-height: 500px;">
-                                        <img src="~/Content/img/@Html.DisplayFor(modelItem => articolo.Foto)" />
-                                        <div class="card-body">
-                                            <h5 class="card-title">@Html.DisplayFor(modelItem => articolo.NomeArticolo)</h5>
-                                            <p class="card-text short-text">@Html.DisplayFor(modelItem => articolo.Descrizione)</p>
-                                            @if (articolo.Esaurito == true)
-                                            {
-                                                <div class="alert alert-warning">Esaurito</div>
-                                            }
-                                            else
-                                            {
-                                                // Mostra i bottoni e i campi di input solo se l'articolo non è esaurito
-                                                <div class="card-text qta">
-                                                    <h5 class="card-title quantita"><input type="number" min="1" step="1" class="quantity-input" data-id="@articolo.IdArticolo" /></h5>
-                                                </div>
-                                                <div class="card-text">
-                                                    <h5 class="card-title">@Html.DisplayFor(modelItem => articolo.Prezzo)</h5>
-                                                </div>
-                                                <div id="contBtn">
-                                                    <a href="#" data-id="@articolo.IdArticolo" class="OrdinaBtn" style="white-space: nowrap; cursor: pointer; color: #ff6347; ">Aggiungi al carrello</a>
-                                                </div>
-                                            }
-
-                                        </div>
-                                        @if (!User.IsInRole("Amministratore") && articolo.Esaurito.HasValue && !articolo.Esaurito.Value)
-                                        {
-                                            <div class="card-text qta">
-                                                <h5 class="card-title quantita"><input type="number" min="1" step="1" class="quantity-input" data-id="@articolo.IdArticolo" /></h5>
-                                            </div>
-                                            <div class="card-text">
-                                                <h5 class="card-title">@Html.DisplayFor(modelItem => articolo.Prezzo)</h5>
-                                            </div>
-                                            <div id="contBtn">
-                                                <a href="#" data-id="@articolo.IdArticolo" class="OrdinaBtn" style="white-space: nowrap; cursor: pointer; color: #ff6347; ">Aggiungi al carrello</a>
-                                            </div>
-                                        }
-                                    </div>
-                                }
-                            </div>
-                        }
-                    </section>
-                </div>
-            </div>
-        </div>
+        }
     </div>
 </div>
+<hr style="margin-top: 0;">
+
+
+
+
+<div class="flexCard container" style="text-align:center">
+    <h1 class="responsive-title" data-aos="zoom-in">I nostri articoli:</h1>
+    <section id="categorie" class="d-flex flex-wrap">
+        @foreach (var categoria in Model.ArticoliPerCategoria)
+        {
+            <div class="card-container d-flex flex-wrap justify-content-center" data-categoria="@categoria.Key.NomeCategoria" style="display: none;">
+                @foreach (var articolo in categoria.Value)
+                {
+                    <div class="card fade-in-right m-3" style="width: 20rem; height: 100%; min-height: 500px;">
+                        <img src="~/Content/img/@Html.DisplayFor(modelItem => articolo.Foto)" />
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.DisplayFor(modelItem => articolo.NomeArticolo)</h5>
+                            <p class="card-text short-text">@Html.DisplayFor(modelItem => articolo.Descrizione)</p>
+                            @if (articolo.Esaurito == true)
+                            {
+                                <div class="alert alert-warning">Esaurito</div>
+                            }
+                            else
+                            {
+                                <div class="card-text">
+                                    <h5 class="card-title">@Html.DisplayFor(modelItem => articolo.Prezzo)</h5>
+                                </div>
+                                if (!User.IsInRole("Amministratore"))
+                                {
+                                    <div class="card-text qta">
+                                        <h5 class="card-title quantita"><input type="number" min="1" step="1" class="quantity-input" data-id="@articolo.IdArticolo" /></h5>
+                                    </div>
+                                    <div id="contBtn">
+                                        <a href="#" data-id="@articolo.IdArticolo" class="OrdinaBtn" style="white-space: nowrap; cursor: pointer; color: #ff6347; ">Aggiungi al carrello</a>
+                                    </div>
+                                }
+                            }
+                            @if (!User.IsInRole("Amministratore"))
+                            {
+                                using (Html.BeginForm("AddToPreferitiPost", "Preferiti", FormMethod.Post, new { @class = "add-to-favorites-form", data_idArticolo = articolo.IdArticolo }))
+                                {
+                                    @Html.Hidden("idArticolo", articolo.IdArticolo)
+                                    <button type="submit" class="btn btn-link" style="color: lightgray;"><i class="fa fa-heart-o fa-2x"></i></button>
+                                }
+                            }
+
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </section>
+</div>
+
+
+
+
+
+
+
+
 
 
 
@@ -89,6 +91,78 @@
         <span class="badge badge-light" id="cart-count" style="background-color: red; color: white;"></span>
     </button>
 }
+
+<script>
+    /*QUESTO SCRIPT AGGIUNGE E RIMUOVE GLI ARTICOLI DAL DATABASE!!! FUNZIONA TUTTO E NON LO TOCCARE */
+    $(document).ready(function () {
+        // Ottieni gli articoli preferiti dell'utente al momento del login
+        $.get('/Preferiti/GetPreferiti')
+            .done(function (preferiti) {
+                // Per ogni articolo preferito, attiva il cuoricino corrispondente
+                preferiti.forEach(function (idArticolo) {
+                    var form = $('.add-to-favorites-form[data-idArticolo="' + idArticolo + '"]');
+                    var button = form.find('button');
+                    var icon = button.find('i');
+
+                    // Colora l'icona di rosso e rendila piena
+                    icon.removeClass('fa-heart-o').addClass('fa-heart');
+                    button.css('color', 'red');
+                });
+            });
+
+        // Carica lo stato dei preferiti per ogni articolo
+        $('.add-to-favorites-form').each(function () {
+            var form = $(this);
+            var button = form.find('button');
+            var icon = button.find('i');
+
+            $.get('/Preferiti/IsInPreferiti?idArticolo=' + form.data('idArticolo'))
+                .done(function (isFavorited) {
+                    if (isFavorited) {
+                        // Se l'articolo è nei preferiti, colora l'icona di rosso e rendila piena
+                        icon.removeClass('fa-heart-o').addClass('fa-heart');
+                        button.css('color', 'red');
+                    } else {
+                        // Se l'articolo non è nei preferiti, rendi l'icona vuota e grigia
+                        icon.removeClass('fa-heart').addClass('fa-heart-o');
+                        button.css('color', 'lightgray');
+                    }
+                });
+        });
+
+        // Gestione dell'aggiunta e della rimozione dai preferiti
+        $('.add-to-favorites-form').submit(function (e) {
+            e.preventDefault();
+
+            var form = $(this);
+            var button = form.find('button');
+            var icon = button.find('i');
+
+            var isFavorited = icon.hasClass('fa-heart');
+            var action = isFavorited ? '/Preferiti/RemoveFromPreferitiPost' : form.attr('action');
+
+            $.post(action, form.serialize())
+                .done(function () {
+                    if (isFavorited) {
+                        // Se l'articolo era nei preferiti, rendi l'icona vuota e grigia
+                        icon.removeClass('fa-heart').addClass('fa-heart-o');
+                        button.css('color', 'lightgray');
+                        sweetAlert("Successo", "Articolo rimosso dai preferiti.", "success");
+                    } else {
+                        // Se l'articolo non era nei preferiti, colora l'icona di rosso e rendila piena
+                        icon.removeClass('fa-heart-o').addClass('fa-heart');
+                        button.css('color', 'red');
+                        sweetAlert("Successo", "Articolo aggiunto ai preferiti.", "success");
+                    }
+                })
+                .fail(function () {
+                    sweetAlert("Errore", "Non è stato possibile aggiornare i preferiti.", "error");
+                });
+        });
+    });
+
+</script>
+
 
 
 
