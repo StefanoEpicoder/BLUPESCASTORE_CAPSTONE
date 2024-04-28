@@ -11,9 +11,23 @@ namespace BLUPESCASTORE.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ModelDBcontext db;
+
+        public HomeController(ModelDBcontext context)
+        {
+            db = context;
+        }
+
+
+        //metodo per mostrare gli ultimi 5 articoli inseriti
         public ActionResult Index()
         {
-            return View();
+            var ultimiArticoli = db.ARTICOLO
+                .OrderByDescending(a => a.IdArticolo)
+                .Take(8)
+                .ToList();
+
+            return View(ultimiArticoli);
         }
 
         public ActionResult Login()
@@ -21,39 +35,36 @@ namespace BLUPESCASTORE.Controllers
             return View();
         }
 
-[HttpPost]
-public ActionResult Login(USER u)
-{
-    if (USER.Autenticato(u.Username, u.Pass))
-    {
-        var userData = u.IdUser.ToString(); // Usa 'IdUser' invece di 'Id'
-        FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
-            1,                             // versione del ticket
-            u.Username,                    // nome utente associato al ticket
-            DateTime.Now,                  // ora di creazione del ticket
-            DateTime.Now.AddMinutes(30),   // ora di scadenza del ticket
-            false,                         // se persistere il ticket nel cookie
-            userData,                      // dati dell'utente da memorizzare nel ticket
-            FormsAuthentication.FormsCookiePath); // percorso del cookie
+        [HttpPost]
+        public ActionResult Login(USER u)
+        {
+            if (USER.Autenticato(u.Username, u.Pass))
+            {
+                var userData = u.IdUser.ToString();
+                FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
+                    1,
+                    u.Username,
+                    DateTime.Now,
+                    DateTime.Now.AddMinutes(30),
+                    false,
+                    userData,
+                    FormsAuthentication.FormsCookiePath);
 
-        // Cripta il ticket
-        string encTicket = FormsAuthentication.Encrypt(ticket);
+                string encTicket = FormsAuthentication.Encrypt(ticket);
 
-        // Crea il cookie con il ticket criptato
-        Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
+                Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
 
-        TempData["ToastType"] = "success";
-        TempData["ToastMessage"] = "Benvenuto, " + u.Username + "!";
-        return Redirect(FormsAuthentication.DefaultUrl);
-    }
-    else
-    {
-        TempData["ToastType"] = "error";
-        TempData["ToastMessage"] = "Username o password non corretti";
-        return View();
-    }
-}
-
+                TempData["ToastType"] = "success";
+                TempData["ToastMessage"] = "Benvenuto, " + u.Username + "!";
+                return Redirect(FormsAuthentication.DefaultUrl);
+            }
+            else
+            {
+                TempData["ToastType"] = "error";
+                TempData["ToastMessage"] = "Username o password non corretti";
+                return View();
+            }
+        }
 
         public ActionResult LogOut()
         {

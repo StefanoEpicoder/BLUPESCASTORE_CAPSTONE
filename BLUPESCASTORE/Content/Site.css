@@ -131,6 +131,9 @@ label {
 }
 
 .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     transition: all 0.2s ease-in-out !important;
     min-height: 200px;
     margin: 5px;
@@ -152,17 +155,28 @@ label {
     }
 
 
+    .Heart {
+    align-self: flex-end;
+}
+
 .morelink {
-    font-size: 25px;
+    font-weight: 600;
+    font-size: 20px;
     color: #1851C2;
-    text-decoration: none; /* Rimuove il sottolineamento */
 }
 
     .morelink:hover {
         color: red; /* Cambia il colore al passaggio del mouse */
     }
 
+.price{
 
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+
+}
 
 h5.card-title {
     color: black;
@@ -310,13 +324,18 @@ h5 {
 }
 
 a.OrdinaBtn {
-    color: white;
+    padding:5px;
     font-size: 16px;
+    color: #0d6efd; /* Colore di base */
+    border-radius: 5px; /* Bordo arrotondato */
 }
 
     a.OrdinaBtn:hover {
-        color: #6495ED;
+        color: #0d6efd; /* Colore al passaggio del mouse */
+        box-shadow: 0 0 0 2px #0d6efd; /* "Bordo" al passaggio del mouse */
     }
+
+
 
 
 
@@ -1500,6 +1519,30 @@ h2 {
     display: none;
 }
 
+
+.owl-prev, .owl-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #ccc;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.owl-prev {
+    left: -50px;
+}
+
+.owl-next {
+    right: -50px;
+}
+
+
+
+
+
 section.Carosello {
     width: 100%;
     padding: 0;
@@ -1698,7 +1741,6 @@ section.Carosello {
 .table1 td {
     font-size: 15px;
     text-align: center; /* Centra il testo */
-    padding: 20px; /* Aggiungi spazio intorno al testo */
 }
 
 .table1 tr:nth-child(odd) {
@@ -2055,6 +2097,10 @@ section.Carosello {
 }
 
 
+.CategorieText:hover {
+    color: #1851C2;
+}
+
 .SfondoCategorie {
     background-image: url('img/Sfondo_categorie.jpg');
     background-color: rgba(255, 255, 255, 0.5);
@@ -2062,4 +2108,25 @@ section.Carosello {
     background-size: cover;
     background-repeat: no-repeat;
     padding-top: 40px;
+}
+
+
+.payment-methods {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+    .payment-methods img {
+        width: 90px; /* Modifica a seconda delle tue esigenze */
+        height: auto;
+        margin-right: 10px;
+
+    }
+
+.quantity-input {
+    text-align: center;
+    margin: 6px;
+    border-radius: 6px;
+    width: 70px;
 }

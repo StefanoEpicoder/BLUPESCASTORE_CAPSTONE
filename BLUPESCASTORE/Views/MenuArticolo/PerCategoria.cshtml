@@ -1,6 +1,12 @@
 ﻿@model IEnumerable<BLUPESCASTORE.Models.ARTICOLO>
 
-<h1 style="margin-top:100px">Articoli per categoria</h1>
+<h1 style="margin-top:100px; text-align:center ">Articoli per categoria:</h1>
+@if (Model.Any())
+{
+    <h2 class="categoria">@Model.First().CATEGORIA.NomeCategoria.ToUpper()</h2>
+}
+
+
 
 <div class="d-flex justify-content-center flex-wrap">
     @foreach (var articolo in Model)
@@ -8,7 +14,7 @@
         <div class="card fade-in-right m-3" style="width: 20rem; height: 100%; min-height: 500px;">
             <img src="~/Content/img/@Html.DisplayFor(modelItem => articolo.Foto)" class="card-img-top" alt="@Html.DisplayFor(modelItem => articolo.NomeArticolo)">
             <div class="card-body">
-                <h5 class="card-title">@Html.DisplayFor(modelItem => articolo.NomeArticolo)</h5>
+                <p class="card-title">@Html.DisplayFor(modelItem => articolo.NomeArticolo)</p>
                 <p class="card-text short-text">@Html.DisplayFor(modelItem => articolo.Descrizione)</p>
                 @if (articolo.Esaurito == true)
                 {
@@ -17,15 +23,15 @@
                 else
                 {
                     <div class="card-text">
-                        <h5 class="card-title">@Html.DisplayFor(modelItem => articolo.Prezzo)</h5>
+                        <p class="price">@Html.DisplayFor(modelItem => articolo.Prezzo)</p>
                     </div>
                     if (!User.IsInRole("Amministratore"))
                     {
                         <div class="card-text qta">
-                            <h5 class="card-title quantita"><input type="number" min="1" step="1" class="quantity-input" data-id="@articolo.IdArticolo" /></h5>
+                            <span>Qtà</span><h5 class="card-title quantita"><input type="number" min="1" step="1" class="quantity-input" data-id="@articolo.IdArticolo" /></h5>
                         </div>
                         <div id="contBtn">
-                            <a href="#" data-id="@articolo.IdArticolo" class="OrdinaBtn" style="white-space: nowrap; cursor: pointer; color: #ff6347; ">Aggiungi al carrello</a>
+                            <a href="#" data-id="@articolo.IdArticolo" class="OrdinaBtn" style="white-space: nowrap; cursor: pointer; ">Aggiungi al carrello</a>
                         </div>
                     }
                 }

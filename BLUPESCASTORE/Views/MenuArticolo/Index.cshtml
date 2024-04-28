@@ -9,7 +9,7 @@
         @foreach (var categoria in Model.ArticoliPerCategoria)
         {
             <div class="p-3">
-                <a href="@Url.Action("PerCategoria", "MenuArticolo", new { categoria = categoria.Key.NomeCategoria })" class=" text-uppercase rounded list-group-item list-group-item-action">@categoria.Key.NomeCategoria</a>
+                <a href="@Url.Action("PerCategoria", "MenuArticolo", new { categoria = categoria.Key.NomeCategoria })" class="CategorieText text-uppercase rounded list-group-item list-group-item-action">@categoria.Key.NomeCategoria</a>
             </div>
         }
     </div>
@@ -30,7 +30,7 @@
                     <div class="card fade-in-right m-3" style="width: 20rem; height: 100%; min-height: 500px;">
                         <img src="~/Content/img/@Html.DisplayFor(modelItem => articolo.Foto)" />
                         <div class="card-body">
-                            <h5 class="card-title">@Html.DisplayFor(modelItem => articolo.NomeArticolo)</h5>
+                            <p class="card-title">@Html.DisplayFor(modelItem => articolo.NomeArticolo)</p>
                             <p class="card-text short-text">@Html.DisplayFor(modelItem => articolo.Descrizione)</p>
                             @if (articolo.Esaurito == true)
                             {
@@ -39,15 +39,15 @@
                             else
                             {
                                 <div class="card-text">
-                                    <h5 class="card-title">@Html.DisplayFor(modelItem => articolo.Prezzo)</h5>
+                                    <p class="price">@Html.DisplayFor(modelItem => articolo.Prezzo)</p>
                                 </div>
                                 if (!User.IsInRole("Amministratore"))
                                 {
                                     <div class="card-text qta">
-                                        <h5 class="card-title quantita"><input type="number" min="1" step="1" class="quantity-input" data-id="@articolo.IdArticolo" /></h5>
+                                        <span>Qtà</span><h5 class="card-title quantita"><input type="number" min="1" step="1" class="quantity-input" data-id="@articolo.IdArticolo" /></h5>
                                     </div>
                                     <div id="contBtn">
-                                        <a href="#" data-id="@articolo.IdArticolo" class="OrdinaBtn" style="white-space: nowrap; cursor: pointer; color: #ff6347; ">Aggiungi al carrello</a>
+                                        <a href="#" data-id="@articolo.IdArticolo" class="OrdinaBtn" style="white-space: nowrap; cursor: pointer;">Aggiungi al carrello</a>
                                     </div>
                                 }
                             }
@@ -56,7 +56,7 @@
                                 using (Html.BeginForm("AddToPreferitiPost", "Preferiti", FormMethod.Post, new { @class = "add-to-favorites-form", data_idArticolo = articolo.IdArticolo }))
                                 {
                                     @Html.Hidden("idArticolo", articolo.IdArticolo)
-                                    <button type="submit" class="btn btn-link" style="color: lightgray;"><i class="fa fa-heart-o fa-2x"></i></button>
+                                    <button type="submit" class="btn btn-link" style="color: lightgray;"><i class="Heart fa fa-heart-o fa-2x"></i></button>
                                 }
                             }
 

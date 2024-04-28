@@ -49,7 +49,7 @@
                 }
 
                 <script>
-    $(document).ready(function () {
+                    $(document).ready(function () {
                         $('.toast').toast('show');
                     });</script>
                 <div id="toast-container">
@@ -207,7 +207,7 @@
     <button onclick="topFunction()" id="backToTopBtn" title="Torna all'inizio" data-aos="zoom-in">Top</button>
 
     <script>
-    // Show the buttons when the page loads
+        // Show the buttons when the page loads
         // Ottieni il bottone
         var mybutton = document.getElementById("backToTopBtn");
 
@@ -251,63 +251,70 @@
             crossorigin="anonymous"></script>
 
 
-    <img src="~/Content/img/banner_metodi_pagamento.png" alt="Descrizione dell'immagine" style="display: block; width: 100%; height:160px">
+    <div class="payment-methods">
+        <img src="~/Content/img/visa.png" alt="Visa" title="Visa">
+        <img src="~/Content/img/mastercard.png" alt="Mastercard" title="Mastercard">
+        <img src="~/Content/img/paypal.png" alt="Paypal" title="Paypal">
+        <img src="~/Content/img/stripe.png" alt="Stripe" title="Stripe">
+        <img src="~/Content/img/bonificobancario.png" alt="bonifico" title="Bonifico" >
+        <!-- Aggiungi altre immagini di metodi di pagamento qui -->
+    </div>
 
     <footer class="pippo">
-       <div class="container py-5">
-           <div class="row py-3 flex-wrap justify-content-between">
+        <div class="container py-5">
+            <div class="row py-3 flex-wrap justify-content-between">
 
-               <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
 
-                   <ul class="list-unstyled mb-0">
-                       <li class="mb-2"><a href="#" class="text-white">Contattaci</a></li>
-                       <li class="mb-2"><a href="#" class="text-white">Su di noi</a></li>
-                       <li class="mb-2"><a href="#" class="text-white">Storie</a></li>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2"><a href="#" class="text-white">Contattaci</a></li>
+                        <li class="mb-2"><a href="#" class="text-white">Su di noi</a></li>
+                        <li class="mb-2"><a href="#" class="text-white">Storie</a></li>
 
-                   </ul>
-               </div>
+                    </ul>
+                </div>
 
-               <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
 
-                   <ul class="list-unstyled mb-0">
-                       <li class="mb-2"><a href="#" class="text-white">Pagamenti</a></li>
-                       <li class="mb-2"><a href="#" class="text-white">Spedizioni</a></li>
-                       <li class="mb-2"><a href="#" class="text-white">Ordini sospesi</a></li>
-                       <li class="mb-2"><a href="#" class="text-white">Rimborsi</a></li>
-                   </ul>
-               </div>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2"><a href="#" class="text-white">Pagamenti</a></li>
+                        <li class="mb-2"><a href="#" class="text-white">Spedizioni</a></li>
+                        <li class="mb-2"><a href="#" class="text-white">Ordini sospesi</a></li>
+                        <li class="mb-2"><a href="#" class="text-white">Rimborsi</a></li>
+                    </ul>
+                </div>
 
-               <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
 
-                   <ul class="list-unstyled mb-0">
-                       <li class="mb-2"><a href="#" class="text-white">Return Policy</a></li>
-                       <li class="mb-2"><a href="#" class="text-white">Termini di utilizzo</a></li>
-                       <li class="mb-2"><a href="#" class="text-white">Privacy</a></li>
-                   </ul>
-               </div>
-               <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2"><a href="#" class="text-white">Policy</a></li>
+                        <li class="mb-2"><a href="#" class="text-white">Termini di utilizzo</a></li>
+                        <li class="mb-2"><a href="#" class="text-white">Privacy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
 
-                   <ul class="list-unstyled mb-0">
-                       <li class="mb-2"><a href="#" class="text-white">Login</a></li>
-                       <li class="mb-2"><a href="#" class="text-white">Registrati</a></li>
-                       <li class="mb-2"><a href="#" class="text-white">Negozio</a></li>
-                   </ul>
-               </div>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2"><a href="#" class="text-white">Login</a></li>
+                        <li class="mb-2"><a href="#" class="text-white">Registrati</a></li>
+                        <li class="mb-2"><a href="#" class="text-white">Negozio</a></li>
+                    </ul>
+                </div>
 
-           </div>
-       </div>
-       <hr class="p-0 m-0 b-0">
+            </div>
+        </div>
+        <hr class="p-0 m-0 b-0">
 
 
-       <div class="bg-light py-2">
-           <div class="container text-center">
-               <h1 class="responsive-title" style="color: #1851C2 !important;">&copy; 2024 BLUPESCASTORE</h1>
-               <p style="color: #1851C2 !important;">Sito web realizzato da Stefano D'Antoni</p>
+        <div class="bg-light py-2">
+            <div class="container text-center">
+                <h1 class="responsive-title" style="color: #1851C2 !important;">&copy; 2024 BLUPESCASTORE</h1>
+                <p style="color: #1851C2 !important;">Sito web realizzato da Stefano D'Antoni</p>
 
-           </div>
-       </div>
+            </div>
+        </div>
 
-   </footer>
+    </footer>
 
 </body>
 
