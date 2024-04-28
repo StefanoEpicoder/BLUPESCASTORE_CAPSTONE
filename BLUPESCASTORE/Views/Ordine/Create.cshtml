@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<h2 style="color: #6f6d6b; text-shadow: 1px 1px 9px rgba(1, 0, 0, 0.5);">DETTAGLIO DELL'ORDINE</h2>
+<h2>CREAZIONE DELL'ORDINE</h2>
 
 <div class="container-fluid" id="bgMenu">
 
@@ -18,15 +18,15 @@
             @Html.HiddenFor(model => model.IdUser)
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            <div class="form-group">
+            <div class="form-group d-flex align-items-center">
                 @Html.LabelFor(model => model.NumeroOrdine, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.NumeroOrdine, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.EditorFor(model => model.NumeroOrdine, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @maxlength = "5", @style = "width: 80px;" } })
                     @Html.ValidationMessageFor(model => model.NumeroOrdine, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group d-flex align-items-center">
                 @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
@@ -90,9 +90,9 @@
                 </tr>
             </table>
 
-            <h2 style="color: #6f6d6b; text-shadow: 1px 1px 9px rgba(1, 0, 0, 0.5);">ARTICOLI ACQUISTATI</h2>
+            <h2>I TUOI ARTICOLI</h2>
 
-            <table class="table">
+            <table class="table d-flex justify-content-center">
                 <tr>
                     <th class="">
                         Nome dell'articolo
@@ -117,11 +117,11 @@
                 }
             </table>
 
-            <div class="form-group">
+            <div class="form-group" style="text-align: -webkit-center;">
                 @Html.LabelFor(model => model.TotaleImporto, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @{Html.EnableClientValidation(false);}
-                    @Html.EditorFor(model => model.TotaleImporto, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.EditorFor(model => model.TotaleImporto, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "width: 90px;" } })
                     @{Html.EnableClientValidation(true);}
                     @*@Html.ValidationMessageFor(model => model.TotaleImporto, "", new { @class = "text-danger" })*@
                 </div>
@@ -129,10 +129,10 @@
 
 
 
-            <div class="form-group">
+            <div class="form-group d-flex justify-content-evenly">
                 <div class="d-flex flex-row justify-content-between col-md-offset-2 col-md-10">
                     @Html.ActionLink("INDIETRO", "Carrello", "Dettaglio", null, new { @class = "btn btn-danger" })
-                    <input type="submit" value="PAGA" class="btn btn-success" id="salva" onclick="showPaymentMessage()" />
+                    <input type="submit" value="VAI AL PAGAMENTO" class="btn btn-success" style="width:178px;" id="salva" onclick="showPaymentMessage()" />
                 </div>
             </div>
 

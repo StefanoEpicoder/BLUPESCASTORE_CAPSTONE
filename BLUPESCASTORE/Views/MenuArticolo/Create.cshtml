@@ -30,9 +30,9 @@
                 @Html.LabelFor(model => model.IdCategoria, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.DropDownListFor(model => model.IdCategoria,
-                                                (SelectList)ViewBag.IdCategoria,
-                                                "Seleziona una categoria",
-                                                new { @class = "form-control" })
+                                                               (SelectList)ViewBag.IdCategoria,
+                                                               "Seleziona una categoria",
+                                                               new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.IdCategoria, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -71,18 +71,23 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <div class=" col-md-10">
-                    <input type="submit" value="CREA" class="btn btn-default" id="salva" />
+            <div class="bottoneCreateMenuArticolo d-flex align-items-center">
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <input type="submit" value="AGGIUNGI ARTICOLO" class="btn btn-success" style="width:190px" id="salva" />
+                    </div>
+                </div>
+                <div>
+                    @Html.ActionLink("RITORNA AGLI ARTICOLI", "Index", null, new { @class = "btn btn-warning" })
                 </div>
             </div>
-        </div>
-        }
+            </div>
 
-        <div>
-            @Html.ActionLink("Ritorna agli articoli", "Index")
+            }
+
+
+
         </div>
-    </div>
 
 </div>
 @section Scripts {

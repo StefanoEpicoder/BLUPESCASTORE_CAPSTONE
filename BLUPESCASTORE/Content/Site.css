@@ -9,7 +9,7 @@ li a {
 a {
     cursor: pointer !important;
     text-decoration: none;
-    color: white;
+    
 }
 
     a:hover {
@@ -103,7 +103,8 @@ th, td {
 }
 
 label {
-    color: white;
+    color: black;
+    margin:5px;
 }
 
 .form-group {
@@ -181,7 +182,7 @@ label {
 h5.card-title {
     color: black;
     font-size: 15px;
-    padding:10px !important;
+
 }
 
 .card-text {

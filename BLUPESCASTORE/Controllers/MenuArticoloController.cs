@@ -177,10 +177,13 @@ namespace BLUPESCASTORE.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ARTICOLO aRTICOLO = db.ARTICOLO.Find(id);
+            var preferiti = db.PREFERITI.Where(p => p.IdArticolo == id);
+            db.PREFERITI.RemoveRange(preferiti);
             db.ARTICOLO.Remove(aRTICOLO);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
 
         protected override void Dispose(bool disposing)
         {
