@@ -254,6 +254,7 @@
     <Content Include="Content\img\metodi-di-pagamento.jpg" />
     <Content Include="Content\img\metodi_pagamento_3.png" />
     <Content Include="Content\img\paypal.png" />
+    <Content Include="Content\img\Registrati_background.jpg" />
     <Content Include="Content\img\Sfondo_categorie.jpg" />
     <Content Include="Content\img\stripe.png" />
     <Content Include="Content\img\visa.png" />

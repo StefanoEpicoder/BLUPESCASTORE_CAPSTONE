@@ -47,8 +47,9 @@
 
         </dl>
         <p>
-            @Html.ActionLink("Modifica", "Edit", new { id = Model.IdArticolo }) |
-            @Html.ActionLink("Ritorna all'area riservata", "ListaAdmin")
+            <a href="@Url.Action("Edit", new { id = Model.IdArticolo })" class="btn btn-warning">Modifica</a>
+            <a href="@Url.Action("ListaAdmin")" class="btn btn-secondary">Ritorna agli articoli</a>
         </p>
+
     </div>
 </div>

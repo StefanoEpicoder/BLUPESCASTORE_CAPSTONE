@@ -279,15 +279,14 @@ h5 {
 
 .contenitoreEsterno {
     height: 100vh;
-    background: url(img/background4.jpg);
+    background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), url(img/background4.jpg);
     background-size: cover;
     background-position: center;
-    opacity: 0.8 !important; /* Add opacity to the images */
 }
 
 
 .control-label {
-    color: black;
+    color: #1851C2;
     margin-bottom: 10px;
 }
 
@@ -2131,3 +2130,15 @@ section.Carosello {
     border-radius: 6px;
     width: 70px;
 }
+
+
+.ciupa {
+    padding: 10px;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('img/background2.jpg');
+    background-size: cover; /* L'immagine coprirà l'intero contenitore */
+    background-repeat: no-repeat; /* L'immagine non si ripeterà */
+    background-position: center; /* L'immagine sarà centrata */
+}
+
+
+

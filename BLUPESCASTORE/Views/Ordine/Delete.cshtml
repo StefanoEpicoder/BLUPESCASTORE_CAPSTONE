@@ -10,8 +10,6 @@
     <div class="container" id="areaRiservata">
 
         <div>
-            <h3 class="OrdineDelete">Sei sicuro di voler eliminare quest'ordine?</h3>
-
             <dl class="dl-horizontal">
                 <dt>
                     @Html.DisplayNameFor(model => model.USER.Username)
@@ -55,15 +53,40 @@
 
             </dl>
 
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("Delete", "Ordine", FormMethod.Post, new { id = "deleteForm" }))
             {
                 @Html.AntiForgeryToken()
 
                 <div class="form-actions no-color">
-                    <input type="submit" value="Elimina" class="btn btn-default" id="salva" /> |
-                    @Html.ActionLink("Annulla", "Index")
+                    <button type="button" class="btn btn-danger" id="salva">Elimina</button>
+                    @Html.ActionLink("Annulla", "Index", null, new { @class = "btn btn-secondary" })
                 </div>
+
             }
         </div>
     </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#salva').click(function (e) {
+            e.preventDefault();
+            swal({
+                title: "Sei sicuro?",
+                text: "Una volta eliminato, non sarai in grado di recuperare questo ordine!",
+                icon: "warning",
+                buttons: ["No, annulla!", "Sì, elimina!"],
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $('#deleteForm').submit();
+                    }
+                });
+        });
+    });
+
+</script>

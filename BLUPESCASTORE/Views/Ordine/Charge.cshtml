@@ -4,7 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Pagamento";
     var dettagli = TempData["Dettagli"] as List<BLUPESCASTORE.Models.DETTAGLIO>;
-    decimal total = dettagli.Sum(item => item.PrezzoTotale);
+    decimal total = 0;
+    if (dettagli != null)
+    {
+        total = dettagli.Sum(item => item.PrezzoTotale);
+    }
 }
 
 <div class="container mt-5">
@@ -76,8 +80,8 @@
                     <input type="text" class="form-control" id="cap" name="cap" placeholder="" required>
                 </div>
                 <hr class="mb-4">
-                <h4 class="mb-3">Metodi di pagamento</h4>
-                <div class="d-block my-3">
+                <h4 class="mb-3"style="text-align: center; color: #1851c2">METODI DI PAGAMENTO</h4>
+                <div class="d-flex my-3 justify-content-evenly align-items-center">
                     <div>
                         <label>
                             <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
@@ -90,13 +94,15 @@
                                     data-currency="eur"></script>
                         </label>
                     </div>
-                    <br />
                     <div>
                         <label>
                             <a href="https://www.paypal.com/it/home" target="_blank">
-                                <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal Logo">
+                                <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal Logo"style="background-color: #ffd700; border-radius: 4px; PADDING: 5px; background-color: #ffd700; ">
                             </a>
                         </label>
+                    </div>
+                    <div>
+                        <img src="~/Content/img/bonificobancario.png" alt="Bonifico Bancario" style="width: 90px; height: auto">
                     </div>
                 </div>
                 <hr class="mb-4">

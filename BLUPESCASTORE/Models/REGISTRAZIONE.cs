@@ -30,7 +30,12 @@ namespace BLUPESCASTORE.Models
         public string ConfirmPassword { get; set; }
         public string Nome { get; set; }
         public string Cognome { get; set; }
+
+        [Required]
+        [StringLength(16, ErrorMessage = "Il Codice Fiscale deve essere di 16 caratteri.", MinimumLength = 16)]
         public string Cod_Fiscale { get; set; }
+
+
         public string Citta { get; set; }
         public string Prov { get; set; }
         public string Tel_Cell { get; set; }

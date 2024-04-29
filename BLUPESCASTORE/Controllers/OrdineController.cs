@@ -171,9 +171,16 @@ namespace BLUPESCASTORE.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IdUser = new SelectList(db.USER, "IdUser", "Username", oRDINE.IdUser);
+
+            // Recupera l'utente dal tuo modello di ordine
+            var user = db.USER.Find(oRDINE.IdUser);
+
+            // Crea un nuovo SelectList con il solo utente
+            ViewBag.IdUser = new SelectList(new List<USER> { user }, "IdUser", "Username");
+
             return View(oRDINE);
         }
+
 
         // POST: Ordine/Edit/5
         // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
