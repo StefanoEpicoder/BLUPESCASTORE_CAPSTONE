@@ -316,6 +316,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_DettaglioPartial.cshtml" />
     <Content Include="Views\Preferiti\Preferiti.cshtml" />
+    <Content Include="Views\MenuArticolo\Articolo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

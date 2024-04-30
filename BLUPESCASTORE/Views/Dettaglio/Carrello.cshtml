@@ -97,12 +97,15 @@
         </table>
         <div class="CarrelloProsegui d-flex flex-row justify-content-between">
             <p class="totale">Totale da pagare: <span style="background-color: #1851C2; color:white; padding:10px; border-radius:8px">@total.ToString("F2")€</span></p>
-
+            <div class="card-text">
+                <a href="@Url.Action("Index", "MenuArticolo")" class="btn btn-success">Torna al Negozio</a>
+            </div>
 
             @if (Model != null && Model.Any())
             {
                 <a class="btn btn-success d-flex align-items-center" id="salva" href="/Ordine/Create">PROSEGUI</a>
             }
+
         </div>
     </div>
 </div>

@@ -4,12 +4,11 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>ELIMINA ORDINE</h2>
+<h2>RIMUOVI ARTICOLO DAL CARRELLO</h2>
 <div class="container-fluid" id="bgMenu">
 
     <div class="container" id="areaRiservata">
 
-        <h3>Sei sicuro di voler eliminare questo ordine?</h3>
 
         <dl class="dl-horizontal">
 
@@ -43,9 +42,10 @@
             @Html.AntiForgeryToken()
 
             <div class="form-actions no-color">
-                <input type="submit" value="Elimina" id="salva" class="btn btn-default" /> |
-                @Html.ActionLink("Carrello", "Carrello")
+                <button type="submit" id="salva" class="btn btn-danger">ELIMINA</button> 
+                @Html.ActionLink("INDIETRO", "Carrello", null, new { @class = "btn btn-secondary" })
             </div>
+
         }
     </div>
 </div>

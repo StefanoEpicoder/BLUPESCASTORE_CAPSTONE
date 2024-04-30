@@ -91,9 +91,9 @@
                         }
                         else
                         {
-                    <div class="card-text">
-                        <p class="price">@Model[i].Prezzo.ToString("F2") €</p>
-                    </div>
+                            <div class="card-text">
+                                <p class="price">@Model[i].Prezzo.ToString("F2") €</p>
+                            </div>
                             if (!User.IsInRole("Amministratore"))
                             {
                                 <div class="card-text qta">
@@ -112,6 +112,9 @@
                                 <button type="submit" class="btn btn-link" style="color: lightgray;"><i class="Heart fa fa-heart-o fa-2x"></i></button>
                             }
                         }
+                        <div class="card-text">
+                            <a href="@Url.Action("Articolo", "MenuArticolo", new { id = Model[i].IdArticolo })" class="btn btn-secondary">Vai all'articolo</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -323,12 +326,7 @@ $(document).ready(function() {
     });
 </script>
 
-@if (!User.IsInRole("Amministratore"))
-{
-    <button onclick="cartFunction()" id="cartBtn" title="Vai al carrello" data-aos="zoom-in">
-        <i class="bi bi-cart4"></i> Carrello
-    </button>
-}
+
 
 <script>
     function cartFunction() {

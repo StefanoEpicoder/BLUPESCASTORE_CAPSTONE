@@ -25,14 +25,17 @@
                                     </div>
                                     if (!User.IsInRole("Amministratore"))
                                     {
-                            <div class="card-text qta">
-                                <span>Qtà</span><h5 class="card-title quantita"><input type="number" min="1" step="1" class="quantity-input" data-id="@articolo.IdArticolo" /></h5>
-                            </div>
+                                        <div class="card-text qta">
+                                            <span>Qtà</span><h5 class="card-title quantita"><input type="number" min="1" step="1" class="quantity-input" data-id="@articolo.IdArticolo" /></h5>
+                                        </div>
                                         <div id="contBtn">
-                                            <a href="#" data-id="@articolo.IdArticolo" class="OrdinaBtn" style="white-space: nowrap; cursor: pointer;">Aggiungi al carrello</a>
+                                            <a href="#" data-id="@articolo.IdArticolo" class="OrdinaBtn" style="white-space: nowrap; cursor: pointer; margin:7px">Aggiungi al carrello</a>
                                         </div>
                                     }
                                 }
+                                <div class="card-text">
+                                    <a href="@Url.Action("Articolo", "MenuArticolo", new { id = articolo.IdArticolo })" class="btn btn-secondary">Vai all'articolo</a>
+                                </div>
 
                             </div>
                         </div>

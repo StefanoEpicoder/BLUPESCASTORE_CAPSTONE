@@ -10,6 +10,7 @@ namespace BLUPESCASTORE.Models
     public class PAGAMENTI
     {
         [Key]
+        [Display(Name = "ID Pagamento")]
         public int IdPagamento { get; set; }
 
         [ForeignKey("User")]
@@ -20,6 +21,7 @@ namespace BLUPESCASTORE.Models
 
         public decimal Importo { get; set; }
 
+        [Display(Name = "Data Pagamento")]
         public DateTime DataPagamento { get; set; }
 
         public string StripeChargeId { get; set; }

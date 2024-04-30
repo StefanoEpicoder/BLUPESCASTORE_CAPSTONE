@@ -217,6 +217,24 @@ namespace BLUPESCASTORE.Controllers
             return View(articoli);
         }
 
+
+        // GET: MenuArticolo/Articolo/5
+        [AllowAnonymous]
+        public ActionResult Articolo(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ARTICOLO articolo = db.ARTICOLO.Include(a => a.CATEGORIA).SingleOrDefault(a => a.IdArticolo == id);
+            if (articolo == null)
+            {
+                return HttpNotFound();
+            }
+            return View(articolo);
+        }
+
+
     }
 
     public class MenuArticolo
