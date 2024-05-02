@@ -1,5 +1,7 @@
 ﻿using BLUPESCASTORE.Models;
+using System;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -35,7 +37,7 @@ namespace BLUPESCASTORE.Controllers
             return View(db.ARTICOLO.ToList());
         }
 
-        // GET: MenuArticolo/Details/5
+  
         // GET: MenuArticolo/Details/5
         public ActionResult Details(int? id)
         {
@@ -71,26 +73,63 @@ namespace BLUPESCASTORE.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ARTICOLO aRTICOLO, HttpPostedFileBase File)
+        public ActionResult Create(ARTICOLO aRTICOLO, HttpPostedFileBase File, string Prezzo)
         {
             if (ModelState.IsValid)
             {
-                // Imposta un valore predefinito per Esaurito se è null
                 if (aRTICOLO.Esaurito == null)
                 {
-                    aRTICOLO.Esaurito = false; // o qualsiasi valore predefinito che desideri
+                    aRTICOLO.Esaurito = false;
                 }
 
-                File.SaveAs(Server.MapPath("/Content/img/" + File.FileName));
-                aRTICOLO.Foto = File.FileName;
+                if (File != null)
+                {
+                    string Path = Server.MapPath("/Content/img/" + File.FileName);
+                    File.SaveAs(Path);
+                    aRTICOLO.Foto = File.FileName;
+                }
+
+                decimal prezzo;
+                if (Decimal.TryParse(Prezzo.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out prezzo))
+                {
+                    prezzo = Math.Truncate(100 * prezzo) / 100;
+                    aRTICOLO.Prezzo = prezzo;
+                }
+                else
+                {
+                    ModelState.AddModelError("Prezzo", "Il prezzo non è in un formato valido.");
+                    return View(aRTICOLO);
+                }
+
+                if (aRTICOLO.InMagazzino == 0)
+                {
+                    aRTICOLO.Esaurito = true;
+                }
+                else
+                {
+                    aRTICOLO.Esaurito = false;
+                }
 
                 db.ARTICOLO.Add(aRTICOLO);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
+            var categorie = db.CATEGORIA.ToList();
+            if (aRTICOLO.CATEGORIA != null)
+            {
+                ViewBag.IdCategoria = new SelectList(categorie, "IdCategoria", "NomeCategoria", aRTICOLO.CATEGORIA.IdCategoria);
+            }
+            else
+            {
+                ViewBag.IdCategoria = new SelectList(categorie, "IdCategoria", "NomeCategoria");
+            }
+
             return View(aRTICOLO);
         }
+
+
+
 
 
         // GET: MenuArticolo/Edit/5
@@ -100,7 +139,8 @@ namespace BLUPESCASTORE.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ARTICOLO aRTICOLO = db.ARTICOLO.Find(id);
+            // Include la categoria quando recuperi l'articolo dal database
+            ARTICOLO aRTICOLO = db.ARTICOLO.Include(a => a.CATEGORIA).SingleOrDefault(a => a.IdArticolo == id);
             if (aRTICOLO == null)
             {
                 return HttpNotFound();
@@ -109,8 +149,8 @@ namespace BLUPESCASTORE.Controllers
             // Recupera le categorie dal database
             var categorie = db.CATEGORIA.ToList();
 
-            // Crea una SelectList con le categorie
-            var listaCategorie = new SelectList(categorie, "IdCategoria", "NomeCategoria");
+            // Crea una SelectList con le categorie, impostando la categoria dell'articolo come selezionata
+            var listaCategorie = new SelectList(categorie, "IdCategoria", "NomeCategoria", aRTICOLO.CATEGORIA.IdCategoria);
 
             // Passa la lista alla vista tramite ViewBag
             ViewBag.IdCategoria = listaCategorie;
@@ -118,12 +158,12 @@ namespace BLUPESCASTORE.Controllers
             return View(aRTICOLO);
         }
 
+
+
         // POST: MenuArticolo/Edit/5
-        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ARTICOLO aRTICOLO, HttpPostedFileBase File)
+        public ActionResult Edit([Bind(Exclude = "Prezzo")] ARTICOLO aRTICOLO, HttpPostedFileBase File, string Prezzo)
         {
             if (ModelState.IsValid)
             {
@@ -136,12 +176,35 @@ namespace BLUPESCASTORE.Controllers
                     existingArticolo.Foto = File.FileName;
                 }
 
-                existingArticolo.Esaurito = aRTICOLO.Esaurito; // Aggiorna lo stato Esaurito
-
                 existingArticolo.NomeArticolo = aRTICOLO.NomeArticolo;
                 existingArticolo.Descrizione = aRTICOLO.Descrizione;
-                existingArticolo.Prezzo = aRTICOLO.Prezzo;
-                // Aggiungi qui eventuali altre proprietà che desideri aggiornare
+
+                // Converti il prezzo in un decimal
+                decimal prezzo;
+                if (Decimal.TryParse(Prezzo.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out prezzo))
+                {
+                    prezzo = Math.Truncate(100 * prezzo) / 100; // Tronca a due cifre decimali
+                    existingArticolo.Prezzo = prezzo;
+                }
+                else
+                {
+                    ModelState.AddModelError("Prezzo", "Il prezzo non è in un formato valido.");
+                    return View(aRTICOLO);
+                }
+
+                existingArticolo.InMagazzino = aRTICOLO.InMagazzino; // Aggiorna la quantità in magazzino
+
+                // Controlla se la quantità in magazzino è 0
+                if (existingArticolo.InMagazzino == 0)
+                {
+                    // Se è 0, imposta Esaurito su true
+                    existingArticolo.Esaurito = true;
+                }
+                else
+                {
+                    // Se non è 0, imposta Esaurito su false
+                    existingArticolo.Esaurito = false;
+                }
 
                 db.Entry(existingArticolo).State = EntityState.Modified;
                 db.SaveChanges();
@@ -149,8 +212,15 @@ namespace BLUPESCASTORE.Controllers
                 return RedirectToAction("ListaAdmin");
             }
 
+            // Se il modello non è valido, ricarica le categorie e restituisci la vista
+            var categorie = db.CATEGORIA.ToList();
+            ViewBag.IdCategoria = new SelectList(categorie, "IdCategoria", "NomeCategoria", aRTICOLO.CATEGORIA.IdCategoria);
+
             return View(aRTICOLO);
         }
+
+
+
 
 
 

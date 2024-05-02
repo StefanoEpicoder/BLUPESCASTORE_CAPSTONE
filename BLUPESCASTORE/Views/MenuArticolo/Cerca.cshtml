@@ -23,6 +23,8 @@ else
                     else
                     {
                         <div class="card-text">
+                            <p>Quantità in magazzino: @Html.DisplayFor(modelItem => articolo.InMagazzino)</p>
+
                             <p class="price">@Html.DisplayFor(modelItem => articolo.Prezzo)</p>
                         </div>
                         if (!User.IsInRole("Amministratore"))
@@ -43,6 +45,9 @@ else
                             <button type="submit" class="btn btn-link" style="color: lightgray;"><i class="Heart fa fa-heart-o fa-2x"></i></button>
                         }
                     }
+                    <div class="card-text">
+                        <a href="@Url.Action("Articolo", "MenuArticolo", new { id = articolo.IdArticolo })" class="btn btn-secondary">Vai all'articolo</a>
+                    </div>
                 </div>
             </div>
         }
@@ -58,7 +63,8 @@ else
     </button>
 }
 
-<script>/*QUESTO SCRIPT AGGIUNGE E RIMUOVE GLI ARTICOLI DAL DATABASE!!! FUNZIONA TUTTO E NON LO TOCCARE */
+<script>
+    /*QUESTO SCRIPT AGGIUNGE E RIMUOVE GLI ARTICOLI DAL DATABASE!!! FUNZIONA TUTTO E NON LO TOCCARE */
     $(document).ready(function () {
         // Ottieni gli articoli preferiti dell'utente al momento del login
         $.get('/Preferiti/GetPreferiti')
@@ -129,7 +135,8 @@ else
 
 
 
-<script>function cartFunction() {
+<script>
+    function cartFunction() {
         window.location.href = '/Dettaglio/Carrello';
     }</script>
 
@@ -144,7 +151,8 @@ $(document).ready(function() {
 
 
 <!--SCRIPT PER GESTIRE IL TOTALE DEI CARATTERI NELLA DESCRIZIONE-->
-<script>$(document).ready(function () {
+<script>
+    $(document).ready(function () {
         var showChar = 40;
         var ellipsestext = "";
         var moretext = "Mostra di più";
@@ -181,7 +189,8 @@ $(document).ready(function() {
 
 <!--SCRIPT PER GESTIRE IL TITOLO DELLA CARD-->
 
-<script>$(document).ready(function () {
+<script>
+    $(document).ready(function () {
         $('.card-title').each(function () {
             var title = $(this).text();
             if (title.length > 30) {
@@ -193,7 +202,8 @@ $(document).ready(function() {
 
 
 
-<script type="text/javascript">$('.categoria-titolo').click(function (event) {
+<script type="text/javascript">
+    $('.categoria-titolo').click(function (event) {
         event.preventDefault();
         var categoria = $(this).data('categoria');
         var cards = $('.card-container[data-categoria="' + categoria + '"] .card');
@@ -226,7 +236,8 @@ $(document).ready(function() {
     </button>
 }
 
-<script>function cartFunction() {
+<script>
+    function cartFunction() {
         window.location.href = '/Dettaglio/Carrello';
     }</script>
 
@@ -242,7 +253,7 @@ function updateCartCount() {
 
 
 
-<script type="text/javascript">
+<script type="text/javascript">//SCRIPT PER AGGIUNGERE GLI ARTICOLI AL CARRELLO
 function updateCartIcon() {
     $.get('@Url.Action("GetCount", "Dettaglio")', function(data) {
         $('.cart-count').text(data);
@@ -256,12 +267,22 @@ $(document).ready(function () {
         event.preventDefault();
         var id = $(this).data("id");
         var quantity = $(this).parent("#contBtn").siblings(".qta").children(".quantita").children("input").val();
+        var inMagazzino = $(this).parent("#contBtn").siblings(".card-text").children("p").text().split(' ')[3]; // Ottieni la quantità in magazzino
 
         if (!isAuthenticated)
         {
             swal({
                 title: "Utente non loggato",
                 text: "Effettua il login!",
+                icon: "warning",
+                button: "OK",
+            });
+        }
+        else if (quantity > inMagazzino) // Verifica se la quantità richiesta supera la quantità disponibile
+        {
+            swal({
+                title: "Quantità non disponibile",
+                text: "Stai cercando di aggiungere più articoli di quanti ce ne siano in magazzino.",
                 icon: "warning",
                 button: "OK",
             });
@@ -288,9 +309,12 @@ $(document).ready(function () {
     });
 });
 
+
 </script>
 
-<script>$(window).scroll(function () {
+
+<script>
+    $(window).scroll(function () {
         if ($(this).scrollTop() > 100) { // Imposta la posizione da cui inizia lo scrolling
             $('#menuCategorie').addClass('fixed');
         } else {
@@ -300,12 +324,14 @@ $(document).ready(function () {
 
 
 
-<script type="text/javascript">$(document).ready(function () {
+<script type="text/javascript">
+    $(document).ready(function () {
         $('.fade-in-right').addClass('animated fadeInRight');
     });</script>
 
 
-<script>$(window).scroll(function () {
+<script>
+    $(window).scroll(function () {
         var footerTop = $('#footer').offset().top; // Ottieni la posizione del footer
         var categoryBottom = $('#menuCategorie').offset().top + $('#menuCategorie').height(); // Ottieni la posizione inferiore della colonna delle categorie
 

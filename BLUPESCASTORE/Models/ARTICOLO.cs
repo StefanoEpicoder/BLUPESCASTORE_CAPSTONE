@@ -43,6 +43,9 @@
         public virtual CATEGORIA CATEGORIA { get; set; }
         public bool? Esaurito { get; set; }
 
+        public int? InMagazzino { get; set; }
+
+
 
     }
 }

@@ -321,9 +321,26 @@ namespace BLUPESCASTORE.Controllers
                     List<DETTAGLIO> d = db.DETTAGLIO.Where(x => x.IdOrdine == null && x.IdUser == u.IdUser).ToList();
                     foreach (var dettaglio in d)
                     {
+                        // Diminuisci la quantità in magazzino per ogni articolo venduto
+                        var articolo = db.ARTICOLO.Find(dettaglio.IdArticolo);
+                        if (articolo != null)
+                        {
+                            articolo.InMagazzino -= dettaglio.Quantita;
+
+                            // Controlla se la quantità in magazzino è 0
+                            if (articolo.InMagazzino <= 0)
+                            {
+                                // Se è 0 o meno, imposta Esaurito su true
+                                articolo.Esaurito = true;
+                            }
+
+                            db.Entry(articolo).State = EntityState.Modified;
+                        }
+
                         db.DETTAGLIO.Remove(dettaglio);
                     }
                     db.SaveChanges();
+                    
                 }
                 else
                 {
@@ -340,6 +357,7 @@ namespace BLUPESCASTORE.Controllers
             TempData["ToastMessage"] = "Il pagamento è stato effettuato con successo.";
             return RedirectToAction("OrdineConfermato");
         }
+
 
 
 

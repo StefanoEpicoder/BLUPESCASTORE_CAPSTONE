@@ -11,5 +11,6 @@ namespace BLUPESCASTORE.Models
         public IEnumerable<CATEGORIA> Categorie { get; set; }
         public Dictionary<CATEGORIA, List<ARTICOLO>> ArticoliPerCategoria { get; set; }
 
+
     }
 }

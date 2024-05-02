@@ -15,8 +15,6 @@ namespace BLUPESCASTORE.Controllers
     {
         private ModelDBcontext db = new ModelDBcontext();
 
-        // GET: Dettaglio
-        //metodo per aggiungere articoli al carrello
         public ActionResult Index(int id, int quantity)
         {
             USER utente = db.USER.Where(x => x.Username == User.Identity.Name).FirstOrDefault();
@@ -26,9 +24,8 @@ namespace BLUPESCASTORE.Controllers
                 d.IdArticolo = id;
                 d.Quantita = quantity;
                 ARTICOLO p = db.ARTICOLO.Find(id);
-                d.PrezzoTotale = (int)(p.Prezzo * d.Quantita);
+                d.PrezzoTotale = p.Prezzo * d.Quantita; // Rimuovi il cast a int
                 d.IdUser = utente.IdUser;
-
 
                 db.DETTAGLIO.Add(d);
                 db.SaveChanges();
@@ -36,6 +33,7 @@ namespace BLUPESCASTORE.Controllers
 
             return View(db.DETTAGLIO.Where(x => x.IdOrdine == null && x.IdUser == utente.IdUser).ToList());
         }
+
 
         public ActionResult Carrello()
         {

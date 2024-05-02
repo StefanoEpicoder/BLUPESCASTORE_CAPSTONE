@@ -29,6 +29,9 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Foto)
                             </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.InMagazzino) <!-- Aggiunto -->
+                            </th>
                             <th></th>
                         </tr>
 
@@ -51,14 +54,13 @@
                                     }
                                     <img src="@Url.Content(File.Exists(Server.MapPath(imagePath)) ? imagePath : defaultImagePath)" />
                                 </td>
-
-
-
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.InMagazzino) <!-- Aggiunto -->
+                                </td>
                                 <td>
                                     @Html.ActionLink("Modifica", "Edit", new { id = item.IdArticolo }, new { @class = "btn btn-warning" })
                                     @Html.ActionLink("Dettagli", "Details", new { id = item.IdArticolo }, new { @class = "btn btn-info" })
                                     @Html.ActionLink("Elimina", "Delete", new { id = item.IdArticolo }, new { @class = "btn btn-danger" })
-
                                 </td>
                             </tr>
                         }
@@ -70,7 +72,8 @@
     </div>
 </div>
 
-<script>window.onload = function () {
+<script>
+    window.onload = function () {
         var navbarHeight = document.querySelector('.pippo').offsetHeight;
         var thElements = document.querySelectorAll('.table1 th');
 
@@ -78,3 +81,4 @@
             th.style.top = navbarHeight + 'px';
         });
     };</script>
+

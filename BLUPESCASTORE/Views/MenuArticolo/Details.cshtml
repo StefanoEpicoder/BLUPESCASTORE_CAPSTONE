@@ -43,8 +43,13 @@
                 @Html.DisplayFor(model => model.Prezzo)
             </dd>
 
+            <dt class="fade-in-right">
+                @Html.DisplayNameFor(model => model.InMagazzino)
+            </dt>
 
-
+            <dd>
+                @Html.DisplayFor(model => model.InMagazzino)
+            </dd>
         </dl>
         <p>
             <a href="@Url.Action("Edit", new { id = Model.IdArticolo })" class="btn btn-warning">Modifica</a>

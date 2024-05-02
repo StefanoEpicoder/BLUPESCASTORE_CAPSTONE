@@ -38,9 +38,11 @@
                             }
                             else
                             {
-                                <div class="card-text">
-                                    <p class="price">@Html.DisplayFor(modelItem => articolo.Prezzo)</p>
-                                </div>
+                        <div class="card-text">
+                            <p>Quantità in magazzino: @Html.DisplayFor(modelItem => articolo.InMagazzino)</p>
+
+                            <p class="price">@Html.DisplayFor(modelItem => articolo.Prezzo)</p>
+                        </div>
                                 if (!User.IsInRole("Amministratore"))
                                 {
                                     <div class="card-text qta">
@@ -83,6 +85,8 @@
         <span class="badge badge-light" id="cart-count" style="background-color: red; color: white;"></span>
     </button>
 }
+
+
 
 <script>
     /*QUESTO SCRIPT AGGIUNGE E RIMUOVE GLI ARTICOLI DAL DATABASE!!! FUNZIONA TUTTO E NON LO TOCCARE */
@@ -282,7 +286,7 @@ function updateCartCount() {
 
 
 
-<script type="text/javascript">
+<script type="text/javascript">//SCRIPT PER AGGIUNGERE GLI ARTICOLI AL CARRELLO
 function updateCartIcon() {
     $.get('@Url.Action("GetCount", "Dettaglio")', function(data) {
         $('.cart-count').text(data);
@@ -296,12 +300,22 @@ $(document).ready(function () {
         event.preventDefault();
         var id = $(this).data("id");
         var quantity = $(this).parent("#contBtn").siblings(".qta").children(".quantita").children("input").val();
+        var inMagazzino = $(this).parent("#contBtn").siblings(".card-text").children("p").text().split(' ')[3]; // Ottieni la quantità in magazzino
 
         if (!isAuthenticated)
         {
             swal({
                 title: "Utente non loggato",
                 text: "Effettua il login!",
+                icon: "warning",
+                button: "OK",
+            });
+        }
+        else if (quantity > inMagazzino) // Verifica se la quantità richiesta supera la quantità disponibile
+        {
+            swal({
+                title: "Quantità non disponibile",
+                text: "Stai cercando di aggiungere più articoli di quanti ce ne siano in magazzino.",
                 icon: "warning",
                 button: "OK",
             });
@@ -327,6 +341,7 @@ $(document).ready(function () {
         }
     });
 });
+
 
 </script>
 
