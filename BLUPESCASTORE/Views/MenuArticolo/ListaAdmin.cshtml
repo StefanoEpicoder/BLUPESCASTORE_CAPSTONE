@@ -4,73 +4,65 @@
     ViewBag.Title = "ListaAdmin";
 }
 
-<h2>AMMINISTRAZIONE</h2>
+<div class="container mt-5">
+    <h2 class="fade-in-right custom-title">AMMINISTRAZIONE</h2>
 
-<div class="container-fluid" id="bgMenu">
-    <div class="container d-flex justify-content-center" id="areaRiservata">
-        <div class="wrapper">
-
-            <div class="container" id="areaRiservata">
-                <p>
-                    @Html.ActionLink("CREA ARTICOLO", "Create", null, new { @class = "btn btn-success d-block" })
-                </p>
-                <div class="">
-                    <table class="table1">
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.NomeArticolo)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Descrizione)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Prezzo)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Foto)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.InMagazzino) <!-- Aggiunto -->
-                            </th>
-                            <th></th>
-                        </tr>
-
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.NomeArticolo)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Descrizione)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Prezzo)
-                                </td>
-                                <td class="miniatura">
-                                    @{
-                                        var imagePath = "~/Content/img/" + Html.DisplayFor(modelItem => item.Foto);
-                                        var defaultImagePath = "~/Content/img/default.jpg"; // Percorso dell'immagine predefinita
-                                    }
-                                    <img src="@Url.Content(File.Exists(Server.MapPath(imagePath)) ? imagePath : defaultImagePath)" />
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.InMagazzino) <!-- Aggiunto -->
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Modifica", "Edit", new { id = item.IdArticolo }, new { @class = "btn btn-warning" })
-                                    @Html.ActionLink("Dettagli", "Details", new { id = item.IdArticolo }, new { @class = "btn btn-info" })
-                                    @Html.ActionLink("Elimina", "Delete", new { id = item.IdArticolo }, new { @class = "btn btn-danger" })
-                                </td>
-                            </tr>
-                        }
-
-                    </table>
-                </div>
-            </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.ActionLink("CREA ARTICOLO", "Create", null, new { @class = "btn btn-success mb-3" })
         </div>
     </div>
+
+    @using (Html.BeginForm("CercaDaAmministratore", "MenuArticolo", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0 d-flex justify-content-center mb-3" }))
+    {
+        <input class="form-control mr-sm-2" type="search" placeholder="Cerca per categoria o per nome dell'articolo" aria-label="Cerca" name="searchTerm" />
+        <button class="btn btn-outline-success my-2 my-sm-0 ml-2" type="submit">Cerca</button>
+    }
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-12 col-md-12 col-lg-12">
+                <div class="card mb-4">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col-12 col-lg-6">
+                            <img class="card-img-top" src="@Url.Content(File.Exists(Server.MapPath("~/Content/img/" + item.Foto)) ? "~/Content/img/" + item.Foto : "~/Content/img/default.jpg")" alt="Card image cap" style=" max-height: none; min-height: none; background-size: 0; object-fit: cover;">
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="card-body">
+                                <h2 class="card-title highlight" style="margin-top:0px">@Html.DisplayFor(modelItem => item.NomeArticolo)</h2>
+                                <p class="card-text">@Html.DisplayFor(modelItem => item.Descrizione)</p>
+                                <p class="card-text"><span class="highlight">Categoria:</span> <span class="highlight">@Html.DisplayFor(modelItem => item.CATEGORIA.NomeCategoria)</span></p>
+                                <p class="card-text price-highlight">Prezzo: @Html.DisplayFor(modelItem => item.Prezzo)</p>
+                                <p class="card-text stock-highlight">In Magazzino: @Html.DisplayFor(modelItem => item.InMagazzino)</p>
+                                <a href="@Url.Action("Edit", "MenuArticolo", new { id = item.IdArticolo })" class="btn btn-warning">Modifica</a>
+                                <a href="@Url.Action("Details", "MenuArticolo", new { id = item.IdArticolo })" class="btn btn-info">Dettagli</a>
+                                <a href="@Url.Action("Delete", "MenuArticolo", new { id = item.IdArticolo })" class="btn btn-danger">Elimina</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>
+
+<style>
+
+    .ml-2 {
+        margin-left: 2rem; /* Distanza desiderata */
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+
+    .animate__animated.animate__fadeIn {
+        animation-duration: 1s;
+    }
+</style>
+
+
 
 <script>
     window.onload = function () {
@@ -80,5 +72,23 @@
         thElements.forEach(function (th) {
             th.style.top = navbarHeight + 'px';
         });
-    };</script>
+    };
+</script>
 
+<style>
+    .highlight {
+        font-size: 2em; /* Aumenta la dimensione del testo del titolo */
+        font-weight: bold; /* Rende il testo in grassetto */
+    }
+
+    .price-highlight, .stock-highlight {
+        font-size: 1.5em; /* Aumenta la dimensione del testo del prezzo e della quantità in magazzino */
+        color: red; /* Cambia il colore del testo in rosso */
+    }
+
+    .custom-title {
+        color: #1851C2; /* Cambia questo con il colore che preferisci */
+        font-family: 'Fishing Script', cursive; /* Cambia questo con il font che preferisci */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Questo aggiunge un'ombra al testo */
+    }
+</style>

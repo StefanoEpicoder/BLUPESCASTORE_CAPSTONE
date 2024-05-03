@@ -4,7 +4,7 @@
 <div class="container-fluid" id="bgMenu">
     <div class="">
          <div class="flexCard container" style="text-align:center">
-            <h1 class="responsive-title" data-aos="zoom-in">I tuoi articoli preferiti:</h1>
+            <h2 class="responsive-title" data-aos="zoom-in">I TUOI PREFERITI:</h2>
             <section id="categorie" class="d-flex flex-wrap">
                 <div class="card-container d-flex flex-wrap justify-content-center">
                     @foreach (var articolo in Model)
@@ -326,3 +326,11 @@ $(document).ready(function () {
             $('#menuCategorie').css('position', 'fixed'); // Altrimenti, rendi la posizione fixed
         }
     });</script>
+
+<style>
+    .responsive-title {
+        color: #1851C2; /* Cambia questo con il colore che preferisci */
+        font-family: 'Fishing Script', cursive; /* Cambia questo con il font che preferisci */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Questo aggiunge un'ombra al testo */
+    }
+</style>

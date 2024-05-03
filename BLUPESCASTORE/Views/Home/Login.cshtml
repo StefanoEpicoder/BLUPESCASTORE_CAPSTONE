@@ -7,10 +7,10 @@
     @Html.AntiForgeryToken()
 
     <div class="contenitoreEsterno" data-aos="zoom-in">
-        <div class="contenitoreLogIn d-flex flex-column justify-content-center align-content-center w-50 mx-auto rounded">
+        <div class="contenitoreLogIn d-flex flex-column justify-content-center align-content-center w-50 mx-auto rounded" >
 
             <div class="d-flex flex-column justify-content-center align-items-center">
-                <h2>Log In:</h2>
+                <h2 class="fade-in-right custom-title">LOG IN:</h2>
                 @Html.ValidationSummary(true, "Uno o più campi input errati:", new { @class = "text-warning" })
 
                 <div class="form-group">
@@ -55,3 +55,12 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+
+<style>
+    .custom-title {
+        color: #1851C2; /* Cambia questo con il colore che preferisci */
+        font-family: 'Fishing Script', cursive; /* Cambia questo con il font che preferisci */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Questo aggiunge un'ombra al testo */
+    }
+</style>

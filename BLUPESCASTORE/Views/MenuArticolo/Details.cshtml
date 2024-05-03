@@ -4,57 +4,69 @@
     ViewBag.Title = "Details";
 }
 
-<h2>DETTAGLI DELL TUO ARTICOLO</h2>
+<h2 class="fade-in-right custom-title">DETTAGLI DEL PRODOTTO</h2>
 
 <div class="container-fluid" id="bgMenu">
-
     <div class="container " id="areaRiservata">
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Qui va la tua foto -->
+                <img src="@Url.Content("~/Content/img/" + Model.Foto)" alt="Foto dell'articolo" class="img-fluid" />
+            </div>
+            <div class="col-md-6">
+                <dl class="dl-horizontal">
+                    <dt class="fade-in-right">
+                        @Html.DisplayNameFor(model => model.NomeArticolo)
+                    </dt>
 
-        <dl class="dl-horizontal">
-            <dt class="fade-in-right">
-                @Html.DisplayNameFor(model => model.NomeArticolo)
-            </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.NomeArticolo)
+                    </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.NomeArticolo)
-            </dd>
+                    <dt class="fade-in-right">
+                        @Html.DisplayNameFor(model => model.CATEGORIA.NomeCategoria)
+                    </dt>
 
-            <dt class="fade-in-right">
-                @Html.DisplayNameFor(model => model.CATEGORIA.NomeCategoria)
-            </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.CATEGORIA.NomeCategoria)
+                    </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.CATEGORIA.NomeCategoria)
-            </dd>
+                    <dt class="fade-in-right">
+                        @Html.DisplayNameFor(model => model.Descrizione)
+                    </dt>
 
-            <dt class="fade-in-right">
-                @Html.DisplayNameFor(model => model.Descrizione)
-            </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Descrizione)
+                    </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Descrizione)
-            </dd>
+                    <dt class="fade-in-right">
+                        @Html.DisplayNameFor(model => model.Prezzo)
+                    </dt>
 
-            <dt class="fade-in-right">
-                @Html.DisplayNameFor(model => model.Prezzo)
-            </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Prezzo)
+                    </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Prezzo)
-            </dd>
+                    <dt class="fade-in-right">
+                        @Html.DisplayNameFor(model => model.InMagazzino)
+                    </dt>
 
-            <dt class="fade-in-right">
-                @Html.DisplayNameFor(model => model.InMagazzino)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.InMagazzino)
-            </dd>
-        </dl>
-        <p>
-            <a href="@Url.Action("Edit", new { id = Model.IdArticolo })" class="btn btn-warning">Modifica</a>
-            <a href="@Url.Action("ListaAdmin")" class="btn btn-secondary">Ritorna agli articoli</a>
-        </p>
-
+                    <dd>
+                        @Html.DisplayFor(model => model.InMagazzino)
+                    </dd>
+                </dl>
+                <p>
+                    <a href="@Url.Action("Edit", new { id = Model.IdArticolo })" class="btn btn-warning">Modifica</a>
+                    <a href="@Url.Action("ListaAdmin")" class="btn btn-secondary">Ritorna agli articoli</a>
+                </p>
+            </div>
+        </div>
     </div>
 </div>
+<style>
+    .custom-title {
+        color: #1851C2; /* Cambia questo con il colore che preferisci */
+        font-family: 'Fishing Script', cursive; /* Cambia questo con il font che preferisci */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Questo aggiunge un'ombra al testo */
+    }
+</style>

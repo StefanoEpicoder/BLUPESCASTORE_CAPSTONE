@@ -305,6 +305,29 @@ namespace BLUPESCASTORE.Controllers
         }
 
 
+
+        public ActionResult CercaDaAmministratore(string searchTerm)
+        {
+            var model = new ListaAdminViewModel();
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                model.Articoli = db.ARTICOLO.Where(a => a.NomeArticolo.Contains(searchTerm) || a.CATEGORIA.NomeCategoria.Contains(searchTerm)).ToList();
+                model.Categorie = db.CATEGORIA.Where(c => c.NomeCategoria.Contains(searchTerm)).ToList();
+            }
+            else
+            {
+                model.Articoli = db.ARTICOLO.ToList();
+                model.Categorie = db.CATEGORIA.ToList();
+            }
+
+            return View(model);
+        }
+
+
+
+
+
     }
 
     public class MenuArticolo

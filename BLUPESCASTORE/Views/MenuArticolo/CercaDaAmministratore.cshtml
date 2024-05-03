@@ -1,0 +1,44 @@
+﻿@model BLUPESCASTORE.Models.ListaAdminViewModel
+
+@using (Html.BeginForm("CercaDaAmministratore", "MenuArticolo", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
+{
+    <input class="form-control mr-sm-2" type="search" placeholder="Cerca" aria-label="Cerca" name="searchTerm" />
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cerca</button>
+}
+
+<h2 class="fade-in-right custom-title">MODIFICA IL TUO ARTICOLO</h2>
+
+<h2>Articoli</h2>
+@if (Model.Articoli != null && Model.Articoli.Any())
+{
+    <div class="row mx-3">
+        @foreach (var articolo in Model.Articoli)
+        {
+            <div class="col-12 col-sm-6 col-md-4">
+                <a href="@Url.Action("Edit", "MenuArticolo", new { id = articolo.IdArticolo })">
+                    <div class="card mb-4 square-card justify-content-center">
+                        <img src="@Url.Content("~/Content/img/" + articolo.Foto)" alt="Foto dell'articolo" class="img-fluid my-custom-class" style=" max-height: none; min-height: none; background-size: 0; object-fit: cover;" />
+                    </div>
+                    <p class="text-center w-100">@articolo.NomeArticolo</p>
+                </a>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="alert alert-info" role="alert">
+        Non ci sono articoli da visualizzare.
+    </div>
+}
+
+
+<style>
+    .custom-title {
+        color: #1851C2; /* Cambia questo con il colore che preferisci */
+        font-family: 'Fishing Script', cursive; /* Cambia questo con il font che preferisci */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Questo aggiunge un'ombra al testo */
+    }
+</style>
+
+

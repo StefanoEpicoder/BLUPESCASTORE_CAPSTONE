@@ -3,8 +3,9 @@
 @{
     ViewBag.Title = "Articolo";
 }
-<h2 style="margin-bottom:40px">ARTICOLO:</h2>
+<h2 class="fade-in-right custom-title"style="margin-bottom:40px">ARTICOLO:</h2>
 <div class="fade-in-right m-3 d-flex" style="min-height: 500px;">
+
     <div style="width: 50%; height: 50%; flex: 1;">
         <div>
             <img src="~/Content/img/@Html.DisplayFor(model => model.Foto)" style="width: 60%; height: 100%; object-fit: contain;" />
@@ -293,3 +294,10 @@ $(document).ready(function () {
         }
     });</script>
 
+<style>
+    .custom-title {
+        color: #1851C2; /* Cambia questo con il colore che preferisci */
+        font-family: 'Fishing Script', cursive; /* Cambia questo con il font che preferisci */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Questo aggiunge un'ombra al testo */
+    }
+</style>

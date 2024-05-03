@@ -7,10 +7,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 
 
-<h1 style="margin-top:100px; text-align:center ">Articoli per categoria:</h1>
+<h2 class="fade-in-right custom-title"style="margin-top:100px; text-align:center ">ARTICOLI PER CATEGORIA:</h2>
 @if (Model.Any())
 {
-    <h2 class="categoria">@Model.First().CATEGORIA.NomeCategoria.ToUpper()</h2>
+    <h2 class="categoria fade-in-right" style="background-color: #FFD700">@Model.First().CATEGORIA.NomeCategoria.ToUpper()</h2>
 }
 
 
@@ -296,3 +296,18 @@ $(document).ready(function () {
     $(document).ready(function () {
         $('.fade-in-right').addClass('animated fadeInRight');
     });</script>
+
+
+<style>
+    .categoria {
+        color: #1851C2; /* Cambia questo con il colore che preferisci */
+        font-family: 'Fishing Script', cursive; /* Cambia questo con il font che preferisci */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Questo aggiunge un'ombra al testo */
+    }
+
+    .custom-title {
+        color: #1851C2; /* Cambia questo con il colore che preferisci */
+        font-family: 'Fishing Script', cursive; /* Cambia questo con il font che preferisci */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Questo aggiunge un'ombra al testo */
+    }
+</style>

@@ -193,6 +193,7 @@
     <Compile Include="Models\ChargeViewModel.cs" />
     <Compile Include="Models\Connessioni.cs" />
     <Compile Include="Models\DETTAGLIO.cs" />
+    <Compile Include="Models\ListaAdminViewModels.cs" />
     <Compile Include="Models\MenuArticoloIndexViewModel.cs" />
     <Compile Include="Models\ModelDBcontext.cs" />
     <Compile Include="Models\ORDINE.cs" />
@@ -317,6 +318,7 @@
     <Content Include="Views\Shared\_DettaglioPartial.cshtml" />
     <Content Include="Views\Preferiti\Preferiti.cshtml" />
     <Content Include="Views\MenuArticolo\Articolo.cshtml" />
+    <Content Include="Views\MenuArticolo\CercaDaAmministratore.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

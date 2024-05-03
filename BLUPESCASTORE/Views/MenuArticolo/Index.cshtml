@@ -4,45 +4,74 @@
     ViewBag.Title = "Index";
 }
 <div class="SfondoCategorie">
-    <h1 class="responsive-title" data-aos="zoom-in">Categorie:</h1>
+    <h2 class="fade-in-right custom-title">CATEGORIE:</h2>
     <div class="d-flex flex-wrap justify-content-center" style="padding-bottom:40px;">
         @foreach (var categoria in Model.ArticoliPerCategoria)
         {
-            <div class="p-3">
+            <div class="p-3 category-square" id="@categoria.Key.NomeCategoria">
                 <a href="@Url.Action("PerCategoria", "MenuArticolo", new { categoria = categoria.Key.NomeCategoria })" class="CategorieText text-uppercase rounded list-group-item list-group-item-action">@categoria.Key.NomeCategoria</a>
             </div>
         }
+        
     </div>
 </div>
 <hr style="margin-top: 0;">
+<script>
+    $(document).ready(function () {
+        $('.category-square').each(function () {
+            var hue;
+            var randomColor = Math.floor(Math.random() * 3);
+            switch (randomColor) {
+                case 0:
+                    hue = Math.floor(Math.random() * (60 - 40) + 40); // tonalità per il giallo
+                    break;
+                case 1:
+                    hue = Math.floor(Math.random() * (35 - 25) + 25); // tonalità per l'arancione
+                    break;
+                case 2:
+                    hue = Math.floor(Math.random() * (220 - 180) + 180); // tonalità per l'azzurro
+                    break;
+            }
+            var pastel = 'hsl(' + hue + ', 100%, 87.5%)';
+            $(this).css('background-color', pastel);
+        });
+    });
+
+</script>
 
 
 
 
-<div class="flexCard container" style="text-align:center">
-    <h1 class="responsive-title" data-aos="zoom-in">I nostri articoli:</h1>
-    <section id="categorie" class="d-flex flex-wrap">
-        @foreach (var categoria in Model.ArticoliPerCategoria)
+
+
+
+
+
+<h2 class="fade-in-right custom-title">I NOSTRI ARTICOLI</h2>
+<section id="categorie" class="d-flex flex-wrap">
+    @foreach (var categoria in Model.ArticoliPerCategoria)
+    {
+        if (categoria.Value.Any()) // Mostra la categoria solo se ha almeno un articolo correlato
         {
-            <div class="card-container d-flex flex-wrap justify-content-center" data-categoria="@categoria.Key.NomeCategoria" style="display: none;">
+            <h2 class="fade-in-right custom-title" style="background-color: #FFD700">@categoria.Key.NomeCategoria</h2>
+            <div class="card-container d-flex flex-wrap justify-content-center" data-categoria="@categoria.Key.NomeCategoria">
                 @foreach (var articolo in categoria.Value)
                 {
                     <div class="card fade-in-right m-3" style="width: 20rem; height: 100%; min-height: 500px;">
                         <img src="~/Content/img/@Html.DisplayFor(modelItem => articolo.Foto)" />
                         <div class="card-body">
                             <p class="card-title">@Html.DisplayFor(modelItem => articolo.NomeArticolo)</p>
-                            <p class="card-text short-text">@Html.DisplayFor(modelItem => articolo.Descrizione)</p>
                             @if (articolo.Esaurito == true)
                             {
                                 <div class="alert alert-warning">Esaurito</div>
                             }
                             else
                             {
-                        <div class="card-text">
-                            <p>Quantità in magazzino: @Html.DisplayFor(modelItem => articolo.InMagazzino)</p>
+                                <div class="card-text">
+                                    <p>Quantità in magazzino: @Html.DisplayFor(modelItem => articolo.InMagazzino)</p>
 
-                            <p class="price">@Html.DisplayFor(modelItem => articolo.Prezzo)</p>
-                        </div>
+                                    <p class="price">@Html.DisplayFor(modelItem => articolo.Prezzo)</p>
+                                </div>
                                 if (!User.IsInRole("Amministratore"))
                                 {
                                     <div class="card-text qta">
@@ -61,16 +90,20 @@
                                     <button type="submit" class="btn btn-link" style="color: lightgray;"><i class="Heart fa fa-heart-o fa-2x"></i></button>
                                 }
                             }
-                        <div class="card-text">
-                            <a href="@Url.Action("Articolo", "MenuArticolo", new { id = articolo.IdArticolo })" class="btn btn-secondary">Vai all'articolo</a>
-                        </div>
+                            <div class="card-text">
+                                <a href="@Url.Action("Articolo", "MenuArticolo", new { id = articolo.IdArticolo })" class="btn btn-secondary">Vai all'articolo</a>
+                            </div>
                         </div>
                     </div>
                 }
             </div>
         }
-    </section>
-</div>
+    }
+</section>
+
+
+
+
 
 
 
@@ -86,6 +119,14 @@
     </button>
 }
 
+
+<style>
+    .custom-title {
+        color: #1851C2; /* Cambia questo con il colore che preferisci */
+        font-family: 'Fishing Script', cursive; /* Cambia questo con il font che preferisci */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Questo aggiunge un'ombra al testo */
+    }
+</style>
 
 
 <script>
@@ -377,3 +418,11 @@ $(document).ready(function () {
     });
 
 </script>
+
+<style>
+    .custom-title {
+        color: #1851C2; /* Cambia questo con il colore che preferisci */
+        font-family: 'Fishing Script', cursive; /* Cambia questo con il font che preferisci */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Questo aggiunge un'ombra al testo */
+    }
+</style>

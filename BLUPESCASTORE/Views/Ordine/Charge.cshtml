@@ -15,7 +15,7 @@
     <div class="row justify-content-center">
         <!-- Colonna sinistra per il form di pagamento -->
         <div class="col-md-6">
-            <h2 class="mb-0">Modulo di Pagamento</h2>
+            <h2 class="mb-0 fade-in-right custom-title">MODULO DI PAGAMENTO</h2>
             <form action="/Ordine/Charge" method="POST">
                 <!-- Il tuo form di pagamento va qui -->
                 <div class="form-group">
@@ -80,7 +80,7 @@
                     <input type="text" class="form-control" id="cap" name="cap" placeholder="" required>
                 </div>
                 <hr class="mb-4">
-                <h4 class="mb-3"style="text-align: center; color: #1851c2">METODI DI PAGAMENTO</h4>
+                <h4 class="mb-3" style="text-align: center; color: #1851c2">METODI DI PAGAMENTO</h4>
                 <div class="d-flex my-3 justify-content-evenly align-items-center">
                     <div>
                         <label>
@@ -97,7 +97,7 @@
                     <div>
                         <label>
                             <a href="https://www.paypal.com/it/home" target="_blank">
-                                <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal Logo"style="background-color: #ffd700; border-radius: 4px; PADDING: 5px; background-color: #ffd700; ">
+                                <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal Logo" style="background-color: #ffd700; border-radius: 4px; PADDING: 5px; background-color: #ffd700; ">
                             </a>
                         </label>
                     </div>
@@ -144,3 +144,12 @@
             th.style.top = navbarHeight + 'px';
         });
     };</script>
+
+
+<style>
+    .custom-title {
+        color: #1851C2; /* Cambia questo con il colore che preferisci */
+        font-family: 'Fishing Script', cursive; /* Cambia questo con il font che preferisci */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Questo aggiunge un'ombra al testo */
+    }
+</style>

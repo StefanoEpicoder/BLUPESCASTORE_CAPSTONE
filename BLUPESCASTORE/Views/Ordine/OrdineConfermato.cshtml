@@ -4,7 +4,7 @@
     ViewBag.Title = "OrdineConfermato";
 }
 
-<h2>STORICO ORDINI </h2>
+<h2 class="fade-in-right custom-title">STORICO ORDINI</h2>
 <div class="container-fluid" id="bgMenu">
     <div class="container d-flex justify-content-center" id="areaRiservata">
         <div class="wrapper">
@@ -95,7 +95,7 @@
                             @Html.DisplayFor(modelItem => item.Ordine.Evaso)
                         </td>
                         <td>
-                            @Html.ActionLink("Mostra dettagli", "Details", new { id = item.Ordine.IdOrdine }, new { @class = "btn btn-info"})
+                            @Html.ActionLink("Mostra dettagli", "Details", new { id = item.Ordine.IdOrdine }, new { @class = "btn btn-info" })
                         </td>
                     </tr>
                 }
@@ -107,7 +107,8 @@
     </div>
 </div>
 
-<script>window.onload = function () {
+<script>
+    window.onload = function () {
         var navbarHeight = document.querySelector('.pippo').offsetHeight;
         var thElements = document.querySelectorAll('.table1 th');
 
@@ -115,3 +116,12 @@
             th.style.top = navbarHeight + 'px';
         });
     };</script>
+
+
+<style>
+    .custom-title {
+        color: #1851C2; /* Cambia questo con il colore che preferisci */
+        font-family: 'Fishing Script', cursive; /* Cambia questo con il font che preferisci */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Questo aggiunge un'ombra al testo */
+    }
+</style>

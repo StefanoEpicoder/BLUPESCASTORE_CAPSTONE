@@ -1,6 +1,6 @@
 ﻿@model List<BLUPESCASTORE.Models.ARTICOLO>
 
-<h2>Risultati di ricerca</h2>
+<h2 class="fade-in-right custom-title">RISULTATI DI RICERCA</h2>
 
 @if (!Model.Any())
 {
@@ -341,3 +341,12 @@ $(document).ready(function () {
             $('#menuCategorie').css('position', 'fixed'); // Altrimenti, rendi la posizione fixed
         }
     });</script>
+
+
+<style>
+    .custom-title {
+        color: #1851C2; /* Cambia questo con il colore che preferisci */
+        font-family: 'Fishing Script', cursive; /* Cambia questo con il font che preferisci */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Questo aggiunge un'ombra al testo */
+    }
+</style>

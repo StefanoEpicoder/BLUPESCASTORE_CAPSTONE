@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<h2>CREAZIONE DELL'ORDINE</h2>
+<h2 class="fade-in-right custom-title">CREAZIONE DELL'ORDINE</h2>
 
 <div class="container-fluid" id="bgMenu">
 
@@ -14,135 +14,135 @@
         {
             @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
-            @Html.HiddenFor(model => model.IdUser)
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-horizontal">
+                @Html.HiddenFor(model => model.IdUser)
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            <div class="form-group d-flex align-items-center">
-                @Html.LabelFor(model => model.NumeroOrdine, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.NumeroOrdine, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @maxlength = "5", @style = "width: 80px;" } })
-                    @Html.ValidationMessageFor(model => model.NumeroOrdine, "", new { @class = "text-danger" })
+                <div class="form-group d-flex align-items-center">
+                    @Html.LabelFor(model => model.NumeroOrdine, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.NumeroOrdine, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @maxlength = "5", @style = "width: 80px;" } })
+                        @Html.ValidationMessageFor(model => model.NumeroOrdine, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group d-flex align-items-center">
-                @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+                <div class="form-group d-flex align-items-center">
+                    @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
 
 
 
-            <table class="table1">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.USER.Nome)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.USER.Cognome)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.USER.Cod_Fiscale)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.USER.Citta)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.USER.Prov)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.USER.Tel_Cell)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.USER.email)
-                    </th>
+                <table class="table1">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.USER.Nome)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.USER.Cognome)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.USER.Cod_Fiscale)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.USER.Citta)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.USER.Prov)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.USER.Tel_Cell)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.USER.email)
+                        </th>
 
-                    <th></th>
-                </tr>
+                        <th></th>
+                    </tr>
 
-                <tr>
-                    <td>
-                        @Html.DisplayFor(model => model.USER.Nome)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.USER.Cognome)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.USER.Cod_Fiscale)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.USER.Citta)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.USER.Prov)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.USER.Tel_Cell)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.USER.email)
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-            </table>
-
-            <h2>I TUOI ARTICOLI</h2>
-
-            <table class="table d-flex justify-content-center">
-                <tr>
-                    <th class="">
-                        Nome dell'articolo
-                    </th>
-                    <th class="">
-                        Quantità
-                    </th>
-                    <!-- Aggiungi qui altre intestazioni di colonna per altre proprietà dell'articolo -->
-                </tr>
-
-                @foreach (var item in Model.DETTAGLIO)
-                {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ARTICOLO.NomeArticolo)
+                            @Html.DisplayFor(model => model.USER.Nome)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Quantita)
+                            @Html.DisplayFor(model => model.USER.Cognome)
                         </td>
-                        <!-- Aggiungi qui altre celle per altre proprietà dell'articolo -->
+                        <td>
+                            @Html.DisplayFor(model => model.USER.Cod_Fiscale)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.USER.Citta)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.USER.Prov)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.USER.Tel_Cell)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.USER.email)
+                        </td>
+                        <td>
+                        </td>
                     </tr>
-                }
-            </table>
+                </table>
 
-            <div class="form-group" style="text-align: -webkit-center;">
-                @Html.LabelFor(model => model.TotaleImporto, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @{Html.EnableClientValidation(false);}
-                    @Html.EditorFor(model => model.TotaleImporto, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "width: 90px;" } })
-                    @{Html.EnableClientValidation(true);}
-                    @*@Html.ValidationMessageFor(model => model.TotaleImporto, "", new { @class = "text-danger" })*@
+                <h2>I TUOI ARTICOLI</h2>
+
+                <table class="table d-flex justify-content-center">
+                    <tr>
+                        <th class="">
+                            Nome dell'articolo
+                        </th>
+                        <th class="">
+                            Quantità
+                        </th>
+                        <!-- Aggiungi qui altre intestazioni di colonna per altre proprietà dell'articolo -->
+                    </tr>
+
+                    @foreach (var item in Model.DETTAGLIO)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ARTICOLO.NomeArticolo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Quantita)
+                            </td>
+                            <!-- Aggiungi qui altre celle per altre proprietà dell'articolo -->
+                        </tr>
+                    }
+                </table>
+
+                <div class="form-group" style="text-align: -webkit-center;">
+                    @Html.LabelFor(model => model.TotaleImporto, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @{Html.EnableClientValidation(false);}
+                        @Html.EditorFor(model => model.TotaleImporto, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "width: 90px;" } })
+                        @{Html.EnableClientValidation(true);}
+                        @*@Html.ValidationMessageFor(model => model.TotaleImporto, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
-            </div>
 
 
 
-            <div class="form-group d-flex justify-content-evenly">
-                <div class="d-flex flex-row justify-content-between col-md-offset-2 col-md-10">
-                    @Html.ActionLink("INDIETRO", "Carrello", "Dettaglio", null, new { @class = "btn btn-danger" })
-                    <input type="submit" value="VAI AL PAGAMENTO" class="btn btn-success" style="width:178px;" id="salva" onclick="showPaymentMessage()" />
+                <div class="form-group d-flex justify-content-evenly">
+                    <div class="d-flex flex-row justify-content-between col-md-offset-2 col-md-10">
+                        @Html.ActionLink("INDIETRO", "Carrello", "Dettaglio", null, new { @class = "btn btn-danger" })
+                        <input type="submit" value="VAI AL PAGAMENTO" class="btn btn-success" style="width:178px;" id="salva" onclick="showPaymentMessage()" />
+                    </div>
                 </div>
+
+
+                <!--<script>
+                    function showPaymentMessage() {
+                        alert("Pagamento effettuato! Ti contatteremo quando il tuo pacco verrà evaso!", "success");
+                    }
+                </script>-->
             </div>
-
-
-            <!--<script>
-        function showPaymentMessage() {
-            alert("Pagamento effettuato! Ti contatteremo quando il tuo pacco verrà evaso!", "success");
-        }
-    </script>-->
-        </div>
         }
 
 
@@ -154,3 +154,12 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+
+<style>
+    .custom-title {
+        color: #1851C2; /* Cambia questo con il colore che preferisci */
+        font-family: 'Fishing Script', cursive; /* Cambia questo con il font che preferisci */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Questo aggiunge un'ombra al testo */
+    }
+</style>

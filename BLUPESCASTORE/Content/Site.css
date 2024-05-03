@@ -131,6 +131,16 @@ label {
     object-fit: cover
 }
 
+
+.my-custom-class {
+    max-height: 0;
+    min-height: 0;
+    border-radius: 0;
+    vertical-align: 0;
+    background-size: 0;
+    object-fit: none;
+}
+
 .card {
     display: flex;
     flex-direction: column;
@@ -2102,7 +2112,7 @@ section.Carosello {
 }
 
 .SfondoCategorie {
-    background-image: url('img/Sfondo_categorie.jpg');
+  
     background-color: rgba(255, 255, 255, 0.5);
     background-blend-mode: overlay;
     background-size: cover;
@@ -2134,7 +2144,6 @@ section.Carosello {
 
 .ciupa {
     padding: 10px;
-    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('img/background2.jpg');
     background-size: cover; /* L'immagine coprirà l'intero contenitore */
     background-repeat: no-repeat; /* L'immagine non si ripeterà */
     background-position: center; /* L'immagine sarà centrata */
@@ -2142,3 +2151,34 @@ section.Carosello {
 
 
 
+
+.category-square {
+    transition: transform .2s; /* Animation */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 20px; /* This adds space around each category */
+    border: 1px solid grey; /* This adds a border around each category */
+    border-radius: 15px; /* This rounds the corners of the square */
+    width: 150px; /* Set the width of the square */
+    height: 150px; /* Set the height of the square */
+    display: flex; /* This will align the text vertically */
+    justify-content: center; /* This will center the text horizontally */
+    align-items: center; /* This will center the text vertically */
+    padding: 10px; /* Add some padding inside the square */
+    box-sizing: border-box; /* This makes sure that padding is included in the square's total width and height */
+
+}
+
+
+    .category-square:hover {
+        transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    }
+
+.CategorieText {
+    color: black; /* Cambia questo con il colore che preferisci */
+    font-family: 'Fishing Script', cursive; /* Cambia questo con il font che preferisci */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Questo aggiunge un'ombra al testo */
+    text-align: center; /* Center the text */
+    word-wrap: break-word; /* This will break the text to next line if it exceeds the width */
+}
+
+/* Add a new class for each category with a different color */
